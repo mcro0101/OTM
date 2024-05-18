@@ -79,87 +79,190 @@ namespace Russ_Tool
 
 			return selectedFilePath;
 		}
+		//-------------------------------------------
+		//public void ReplaceTextInExcel(string filePath, string fileName, Dictionary<string, string> replacements)
+		//{
+		//	try
+		//	{
+		//		// Check if the file exists
+		//		if (!File.Exists(filePath))
+		//		{
+		//			MessageBox.Show($"The file {filePath} does not exist.");
+		//			return;
+		//		}
+
+		//		// Open the Excel file
+		//		using (var workbook = new XLWorkbook(filePath))
+		//		{
+		//			var worksheet = workbook.Worksheets.Add("Sample Sheet");
+		//			worksheet.Cell("B2").Value = "Hello World!"; //date
+		//			worksheet.Cell("D2").Value = "Hello World!"; //Well Info
+		//			//worksheet.Cell("D2").FormulaA1 = "=MID(A1, 7, 5)"; //for using formula
+
+
+
+		//			// Save the changes to the workbook
+		//			workbook.Save();
+		//		}
+
+		//		string pathDir = Path.GetDirectoryName(filePath);
+		//		MessageBox.Show($"{fileName} updated successfully.\nLocated at: {pathDir}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		//	}
+		//	catch (IOException ex)
+		//	{
+		//		MessageBox.Show($"An IO exception occurred: {ex.Message}");
+		//	}
+		//	catch (UnauthorizedAccessException ex)
+		//	{
+		//		MessageBox.Show($"Access to the file is denied: {ex.Message}");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		MessageBox.Show($"An unexpected error occurred: {ex.Message}");
+		//	}
+		//}
+
+
+
+
 
 		// ---------------------------------------
+
+
+
 		public void ReplaceTextInExcel(string filePath, string fileName, Dictionary<string, string> replacements)
 		{
 			try
 			{
-				// Open the workbook
+				// Check if the file exists
+				if (!File.Exists(filePath))
+				{
+					MessageBox.Show($"The file {filePath} does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+
+				// Open the Excel file
 				using (var workbook = new XLWorkbook(filePath))
 				{
-					// Check if there are sheets in the workbook
-					if (workbook.Worksheets.Count == 0)
+					// Iterate through each worksheet in the workbook
+					foreach (var worksheet in workbook.Worksheets)
 					{
-						throw new Exception("Workbook is empty.");
-					}
-
-					// Get the first worksheet
-					var worksheet = workbook.Worksheet(1);
-
-					// Get the used range of the worksheet
-					var range = worksheet.RangeUsed();
-
-					// Check if there is data in the used range
-					if (range == null)
-					{
-						throw new Exception("No data found in the worksheet.");
-					}
-
-					// Get the total number of rows and columns
-					int rows = range.RowCount();
-					int cols = range.ColumnCount();
-
-					// Iterate through the replacements dictionary
-					foreach (var replacement in replacements)
-					{
-						string searchText = replacement.Key;
-						string replaceText = replacement.Value;
-
-						// Iterate through each cell in the used range
-						for (int i = 1; i <= rows; i++)
+						// Iterate through each cell in the worksheet
+						foreach (var cell in worksheet.CellsUsed())
 						{
-							for (int j = 1; j <= cols; j++)
+							try
 							{
-								var cell = worksheet.Cell(i, j);
-								if (!string.IsNullOrEmpty(cell.GetString()) && cell.GetString() == searchText)
+								if (cell.HasFormula)
 								{
-									cell.Value = replaceText;
+									// If the cell contains a formula, get the formula as text
+									string formula = cell.FormulaA1;
+									bool replaced = false;
+
+									foreach (var replacement in replacements)
+									{
+										if (formula.Contains(replacement.Key, StringComparison.OrdinalIgnoreCase))
+										{
+											// Replace the text in the formula
+											formula = formula.Replace(replacement.Key, replacement.Value, StringComparison.OrdinalIgnoreCase);
+											replaced = true;
+										}
+									}
+
+									if (replaced)
+									{
+										// Set the new formula
+										cell.FormulaA1 = formula;
+									}
 								}
+								else
+								{
+									// If the cell does not contain a formula, get the cell's value as a string
+									string cellValue = cell.GetString();
+
+									if (replacements.TryGetValue(cellValue, out string newValue))
+									{
+										// Replace the cell's value with the corresponding value from the replacements dictionary
+										cell.Value = newValue;
+									}
+								}
+							}
+							catch (Exception ex)
+							{
+								MessageBox.Show($"An error occurred while processing cell {cell.Address}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								continue;
 							}
 						}
 					}
 
-					// Save the workbook
+					// Save the changes to the workbook
 					workbook.Save();
 				}
 
-				// Display success message
 				string pathDir = Path.GetDirectoryName(filePath);
-				MessageBox.Show($"{fileName} created successfully.\nLocated at: {pathDir}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				MessageBox.Show($"{fileName} updated successfully.\nLocated at: {pathDir}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				MessageBox.Show($"An IO exception occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				MessageBox.Show($"Access to the file is denied: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine("Error: " + ex.Message);
-				// Handle or log the exception as required
+				MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+
+
 		// ---------------------------------------------------------------
-		private static void ReleaseObject(object obj)
+
+		public int GetMaxRowsInWorkbook(string filePath)
 		{
 			try
 			{
-				System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-				obj = null;
+				// Check if the file exists
+				if (!File.Exists(filePath))
+				{
+					MessageBox.Show($"The file {filePath} does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return 0;
+				}
+
+				// Open the Excel file
+				using (var workbook = new XLWorkbook(filePath))
+				{
+					int maxRows = 0;
+
+					// Iterate through each worksheet in the workbook
+					foreach (var worksheet in workbook.Worksheets)
+					{
+						// Get the last used row in the worksheet
+						var lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 0;
+						if (lastRow > maxRows)
+						{
+							maxRows = lastRow - 1;
+						}
+					}
+
+					return maxRows;
+				}
 			}
-			catch (System.Exception ex)
+			catch (IOException ex)
 			{
-				obj = null;
-				throw ex;
+				MessageBox.Show($"An IO exception occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return 0;
 			}
-			finally
+			catch (UnauthorizedAccessException ex)
 			{
-				GC.Collect();
+				MessageBox.Show($"Access to the file is denied: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return 0;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return 0;
 			}
 		}
 

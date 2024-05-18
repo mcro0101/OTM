@@ -46,23 +46,25 @@
 			txtNumJoint = new TextBox();
 			label11 = new Label();
 			groupBox2 = new GroupBox();
+			groupBox6 = new GroupBox();
 			label7 = new Label();
+			label17 = new Label();
 			txtFloatLen = new TextBox();
+			label16 = new Label();
+			txtFloatType = new TextBox();
 			label19 = new Label();
+			txtFloatPos = new TextBox();
+			label13 = new Label();
 			rdoFloatNo = new RadioButton();
 			rdoFloatYes = new RadioButton();
-			rdoShoeNo = new RadioButton();
-			label13 = new Label();
-			rdoShoeYes = new RadioButton();
+			groupBox5 = new GroupBox();
 			label14 = new Label();
-			txtFloatPos = new TextBox();
-			label15 = new Label();
-			label16 = new Label();
 			txtShoeType = new TextBox();
 			txtShoeLen = new TextBox();
-			txtFloatType = new TextBox();
-			label17 = new Label();
+			label15 = new Label();
 			label18 = new Label();
+			rdoShoeYes = new RadioButton();
+			rdoShoeNo = new RadioButton();
 			button1 = new Button();
 			txtFilePathDest = new TextBox();
 			txtFileName = new TextBox();
@@ -75,6 +77,8 @@
 			groupBox4 = new GroupBox();
 			groupBox1.SuspendLayout();
 			groupBox2.SuspendLayout();
+			groupBox6.SuspendLayout();
+			groupBox5.SuspendLayout();
 			groupBox3.SuspendLayout();
 			groupBox4.SuspendLayout();
 			SuspendLayout();
@@ -91,7 +95,7 @@
 			// btnGenerate
 			// 
 			btnGenerate.Font = new Font("Segoe UI", 13F);
-			btnGenerate.Location = new Point(429, 563);
+			btnGenerate.Location = new Point(428, 628);
 			btnGenerate.Name = "btnGenerate";
 			btnGenerate.Size = new Size(117, 95);
 			btnGenerate.TabIndex = 5;
@@ -102,56 +106,58 @@
 			// rdoCT
 			// 
 			rdoCT.AutoSize = true;
-			rdoCT.Location = new Point(169, 41);
+			rdoCT.Location = new Point(214, 18);
 			rdoCT.Name = "rdoCT";
-			rdoCT.Size = new Size(99, 19);
+			rdoCT.Size = new Size(87, 19);
 			rdoCT.TabIndex = 6;
 			rdoCT.TabStop = true;
-			rdoCT.Text = "Double Check";
+			rdoCT.Text = "Casing Tally";
 			rdoCT.UseVisualStyleBackColor = true;
+			rdoCT.CheckedChanged += rdoCT_CheckedChanged;
 			// 
 			// rdoDblChk
 			// 
 			rdoDblChk.AutoSize = true;
-			rdoDblChk.Location = new Point(284, 41);
+			rdoDblChk.Location = new Point(84, 18);
 			rdoDblChk.Name = "rdoDblChk";
-			rdoDblChk.Size = new Size(87, 19);
+			rdoDblChk.Size = new Size(99, 19);
 			rdoDblChk.TabIndex = 7;
 			rdoDblChk.TabStop = true;
-			rdoDblChk.Text = "Casing Tally";
+			rdoDblChk.Text = "Double Check";
 			rdoDblChk.UseVisualStyleBackColor = true;
+			rdoDblChk.CheckedChanged += rdoDblChk_CheckedChanged;
 			// 
 			// txtDate
 			// 
-			txtDate.Location = new Point(123, 31);
+			txtDate.Location = new Point(144, 31);
 			txtDate.Name = "txtDate";
 			txtDate.Size = new Size(180, 23);
 			txtDate.TabIndex = 8;
 			// 
 			// txtCD
 			// 
-			txtCD.Location = new Point(123, 60);
+			txtCD.Location = new Point(144, 60);
 			txtCD.Name = "txtCD";
 			txtCD.Size = new Size(180, 23);
 			txtCD.TabIndex = 9;
 			// 
 			// txtWI
 			// 
-			txtWI.Location = new Point(123, 89);
+			txtWI.Location = new Point(144, 89);
 			txtWI.Name = "txtWI";
 			txtWI.Size = new Size(180, 23);
 			txtWI.TabIndex = 10;
 			// 
 			// txtRO1
 			// 
-			txtRO1.Location = new Point(123, 118);
+			txtRO1.Location = new Point(144, 118);
 			txtRO1.Name = "txtRO1";
 			txtRO1.Size = new Size(180, 23);
 			txtRO1.TabIndex = 11;
 			// 
 			// txtRO2
 			// 
-			txtRO2.Location = new Point(123, 147);
+			txtRO2.Location = new Point(144, 147);
 			txtRO2.Name = "txtRO2";
 			txtRO2.Size = new Size(180, 23);
 			txtRO2.TabIndex = 12;
@@ -216,10 +222,11 @@
 			// 
 			// txtNumJoint
 			// 
-			txtNumJoint.Location = new Point(123, 176);
+			txtNumJoint.Location = new Point(144, 176);
 			txtNumJoint.Name = "txtNumJoint";
-			txtNumJoint.Size = new Size(180, 23);
+			txtNumJoint.Size = new Size(39, 23);
 			txtNumJoint.TabIndex = 23;
+			txtNumJoint.KeyPress += txtNumJoint_KeyPress;
 			// 
 			// label11
 			// 
@@ -232,181 +239,206 @@
 			// 
 			// groupBox2
 			// 
-			groupBox2.Controls.Add(label7);
-			groupBox2.Controls.Add(txtFloatLen);
-			groupBox2.Controls.Add(label19);
-			groupBox2.Controls.Add(rdoFloatNo);
-			groupBox2.Controls.Add(rdoFloatYes);
-			groupBox2.Controls.Add(rdoShoeNo);
-			groupBox2.Controls.Add(label13);
-			groupBox2.Controls.Add(rdoShoeYes);
-			groupBox2.Controls.Add(label14);
-			groupBox2.Controls.Add(txtFloatPos);
-			groupBox2.Controls.Add(label15);
-			groupBox2.Controls.Add(label16);
-			groupBox2.Controls.Add(txtShoeType);
-			groupBox2.Controls.Add(txtShoeLen);
-			groupBox2.Controls.Add(txtFloatType);
-			groupBox2.Controls.Add(label17);
-			groupBox2.Controls.Add(label18);
+			groupBox2.Controls.Add(groupBox6);
+			groupBox2.Controls.Add(groupBox5);
 			groupBox2.ForeColor = SystemColors.ActiveCaptionText;
 			groupBox2.Location = new Point(13, 291);
 			groupBox2.Name = "groupBox2";
-			groupBox2.Size = new Size(378, 252);
+			groupBox2.Size = new Size(378, 313);
 			groupBox2.TabIndex = 22;
 			groupBox2.TabStop = false;
 			groupBox2.Text = "Float Equipment";
 			// 
+			// groupBox6
+			// 
+			groupBox6.Controls.Add(label7);
+			groupBox6.Controls.Add(label17);
+			groupBox6.Controls.Add(txtFloatLen);
+			groupBox6.Controls.Add(label16);
+			groupBox6.Controls.Add(txtFloatType);
+			groupBox6.Controls.Add(label19);
+			groupBox6.Controls.Add(txtFloatPos);
+			groupBox6.Controls.Add(label13);
+			groupBox6.Controls.Add(rdoFloatNo);
+			groupBox6.Controls.Add(rdoFloatYes);
+			groupBox6.Location = new Point(5, 140);
+			groupBox6.Name = "groupBox6";
+			groupBox6.Size = new Size(365, 167);
+			groupBox6.TabIndex = 34;
+			groupBox6.TabStop = false;
+			// 
 			// label7
 			// 
 			label7.AutoSize = true;
-			label7.Location = new Point(18, 149);
+			label7.Location = new Point(12, 48);
 			label7.Name = "label7";
 			label7.Size = new Size(76, 15);
 			label7.TabIndex = 29;
 			label7.Text = "Float Length:";
 			// 
+			// label17
+			// 
+			label17.AutoSize = true;
+			label17.Location = new Point(14, 19);
+			label17.Name = "label17";
+			label17.Size = new Size(36, 15);
+			label17.TabIndex = 13;
+			label17.Text = "Float:";
+			// 
 			// txtFloatLen
 			// 
-			txtFloatLen.Location = new Point(122, 146);
+			txtFloatLen.Location = new Point(138, 43);
 			txtFloatLen.Name = "txtFloatLen";
 			txtFloatLen.Size = new Size(180, 23);
 			txtFloatLen.TabIndex = 28;
+			txtFloatLen.KeyPress += txtFloatLen_KeyPress;
+			// 
+			// label16
+			// 
+			label16.AutoSize = true;
+			label16.Location = new Point(14, 77);
+			label16.Name = "label16";
+			label16.Size = new Size(63, 15);
+			label16.TabIndex = 22;
+			label16.Text = "Float Type:";
+			// 
+			// txtFloatType
+			// 
+			txtFloatType.Location = new Point(138, 72);
+			txtFloatType.Name = "txtFloatType";
+			txtFloatType.Size = new Size(180, 23);
+			txtFloatType.TabIndex = 12;
 			// 
 			// label19
 			// 
 			label19.AutoSize = true;
-			label19.Location = new Point(4, 225);
+			label19.Location = new Point(1, 124);
 			label19.Name = "label19";
 			label19.Size = new Size(119, 15);
 			label19.TabIndex = 27;
 			label19.Text = "(After  Joint Number)";
 			// 
+			// txtFloatPos
+			// 
+			txtFloatPos.Location = new Point(138, 108);
+			txtFloatPos.Name = "txtFloatPos";
+			txtFloatPos.Size = new Size(180, 23);
+			txtFloatPos.TabIndex = 23;
+			txtFloatPos.KeyPress += txtFloatPos_KeyPress;
+			// 
+			// label13
+			// 
+			label13.AutoSize = true;
+			label13.Location = new Point(12, 106);
+			label13.Name = "label13";
+			label13.Size = new Size(82, 15);
+			label13.TabIndex = 24;
+			label13.Text = "Float Position:";
+			// 
 			// rdoFloatNo
 			// 
 			rdoFloatNo.AutoSize = true;
-			rdoFloatNo.Location = new Point(227, 120);
+			rdoFloatNo.Location = new Point(243, 17);
 			rdoFloatNo.Name = "rdoFloatNo";
 			rdoFloatNo.Size = new Size(41, 19);
 			rdoFloatNo.TabIndex = 26;
 			rdoFloatNo.TabStop = true;
 			rdoFloatNo.Text = "No";
 			rdoFloatNo.UseVisualStyleBackColor = true;
+			rdoFloatNo.CheckedChanged += rdoFloatNo_CheckedChanged;
 			// 
 			// rdoFloatYes
 			// 
 			rdoFloatYes.AutoSize = true;
-			rdoFloatYes.Location = new Point(147, 120);
+			rdoFloatYes.Location = new Point(163, 17);
 			rdoFloatYes.Name = "rdoFloatYes";
 			rdoFloatYes.Size = new Size(42, 19);
 			rdoFloatYes.TabIndex = 25;
 			rdoFloatYes.TabStop = true;
 			rdoFloatYes.Text = "Yes";
 			rdoFloatYes.UseVisualStyleBackColor = true;
+			rdoFloatYes.CheckedChanged += rdoFloatYes_CheckedChanged;
 			// 
-			// rdoShoeNo
+			// groupBox5
 			// 
-			rdoShoeNo.AutoSize = true;
-			rdoShoeNo.Location = new Point(227, 29);
-			rdoShoeNo.Name = "rdoShoeNo";
-			rdoShoeNo.Size = new Size(41, 19);
-			rdoShoeNo.TabIndex = 24;
-			rdoShoeNo.TabStop = true;
-			rdoShoeNo.Text = "No";
-			rdoShoeNo.UseVisualStyleBackColor = true;
-			// 
-			// label13
-			// 
-			label13.AutoSize = true;
-			label13.Location = new Point(18, 207);
-			label13.Name = "label13";
-			label13.Size = new Size(82, 15);
-			label13.TabIndex = 24;
-			label13.Text = "Float Position:";
-			// 
-			// rdoShoeYes
-			// 
-			rdoShoeYes.AutoSize = true;
-			rdoShoeYes.Location = new Point(147, 29);
-			rdoShoeYes.Name = "rdoShoeYes";
-			rdoShoeYes.Size = new Size(42, 19);
-			rdoShoeYes.TabIndex = 23;
-			rdoShoeYes.TabStop = true;
-			rdoShoeYes.Text = "Yes";
-			rdoShoeYes.UseVisualStyleBackColor = true;
+			groupBox5.Controls.Add(label14);
+			groupBox5.Controls.Add(txtShoeType);
+			groupBox5.Controls.Add(txtShoeLen);
+			groupBox5.Controls.Add(label15);
+			groupBox5.Controls.Add(label18);
+			groupBox5.Controls.Add(rdoShoeYes);
+			groupBox5.Controls.Add(rdoShoeNo);
+			groupBox5.Location = new Point(5, 22);
+			groupBox5.Name = "groupBox5";
+			groupBox5.Size = new Size(365, 119);
+			groupBox5.TabIndex = 33;
+			groupBox5.TabStop = false;
 			// 
 			// label14
 			// 
 			label14.AutoSize = true;
-			label14.Location = new Point(18, 33);
+			label14.Location = new Point(6, 22);
 			label14.Name = "label14";
 			label14.Size = new Size(36, 15);
 			label14.TabIndex = 15;
 			label14.Text = "Shoe:";
 			// 
-			// txtFloatPos
-			// 
-			txtFloatPos.Location = new Point(122, 211);
-			txtFloatPos.Name = "txtFloatPos";
-			txtFloatPos.Size = new Size(180, 23);
-			txtFloatPos.TabIndex = 23;
-			// 
-			// label15
-			// 
-			label15.AutoSize = true;
-			label15.Location = new Point(18, 91);
-			label15.Name = "label15";
-			label15.Size = new Size(76, 15);
-			label15.TabIndex = 1;
-			label15.Text = "Shoe Length:";
-			// 
-			// label16
-			// 
-			label16.AutoSize = true;
-			label16.Location = new Point(20, 178);
-			label16.Name = "label16";
-			label16.Size = new Size(60, 15);
-			label16.TabIndex = 22;
-			label16.Text = "Float Type";
-			// 
 			// txtShoeType
 			// 
-			txtShoeType.Location = new Point(122, 54);
+			txtShoeType.Location = new Point(138, 43);
 			txtShoeType.Name = "txtShoeType";
 			txtShoeType.Size = new Size(180, 23);
 			txtShoeType.TabIndex = 9;
 			// 
 			// txtShoeLen
 			// 
-			txtShoeLen.Location = new Point(122, 88);
+			txtShoeLen.Location = new Point(138, 77);
 			txtShoeLen.Name = "txtShoeLen";
 			txtShoeLen.Size = new Size(180, 23);
 			txtShoeLen.TabIndex = 10;
+			txtShoeLen.KeyPress += txtShoeLen_KeyPress;
 			// 
-			// txtFloatType
+			// label15
 			// 
-			txtFloatType.Location = new Point(122, 175);
-			txtFloatType.Name = "txtFloatType";
-			txtFloatType.Size = new Size(180, 23);
-			txtFloatType.TabIndex = 12;
-			// 
-			// label17
-			// 
-			label17.AutoSize = true;
-			label17.Location = new Point(20, 120);
-			label17.Name = "label17";
-			label17.Size = new Size(36, 15);
-			label17.TabIndex = 13;
-			label17.Text = "Float:";
+			label15.AutoSize = true;
+			label15.Location = new Point(6, 80);
+			label15.Name = "label15";
+			label15.Size = new Size(76, 15);
+			label15.TabIndex = 1;
+			label15.Text = "Shoe Length:";
 			// 
 			// label18
 			// 
 			label18.AutoSize = true;
-			label18.Location = new Point(18, 62);
+			label18.Location = new Point(6, 51);
 			label18.Name = "label18";
 			label18.Size = new Size(63, 15);
 			label18.TabIndex = 14;
 			label18.Text = "Shoe Type:";
+			// 
+			// rdoShoeYes
+			// 
+			rdoShoeYes.AutoSize = true;
+			rdoShoeYes.Location = new Point(163, 18);
+			rdoShoeYes.Name = "rdoShoeYes";
+			rdoShoeYes.Size = new Size(42, 19);
+			rdoShoeYes.TabIndex = 23;
+			rdoShoeYes.TabStop = true;
+			rdoShoeYes.Text = "Yes";
+			rdoShoeYes.UseVisualStyleBackColor = true;
+			rdoShoeYes.CheckedChanged += rdoShoeYes_CheckedChanged;
+			// 
+			// rdoShoeNo
+			// 
+			rdoShoeNo.AutoSize = true;
+			rdoShoeNo.Location = new Point(243, 18);
+			rdoShoeNo.Name = "rdoShoeNo";
+			rdoShoeNo.Size = new Size(41, 19);
+			rdoShoeNo.TabIndex = 24;
+			rdoShoeNo.TabStop = true;
+			rdoShoeNo.Text = "No";
+			rdoShoeNo.UseVisualStyleBackColor = true;
+			rdoShoeNo.CheckedChanged += rdoShoeNo_CheckedChanged;
 			// 
 			// button1
 			// 
@@ -431,10 +463,11 @@
 			// 
 			// txtFileName
 			// 
-			txtFileName.Location = new Point(21, 40);
+			txtFileName.Location = new Point(73, 43);
 			txtFileName.Name = "txtFileName";
-			txtFileName.Size = new Size(118, 23);
+			txtFileName.Size = new Size(228, 23);
 			txtFileName.TabIndex = 24;
+			txtFileName.KeyPress += txtFileName_KeyPress;
 			// 
 			// label2
 			// 
@@ -448,7 +481,7 @@
 			// label6
 			// 
 			label6.AutoSize = true;
-			label6.Location = new Point(6, 19);
+			label6.Location = new Point(6, 46);
 			label6.Name = "label6";
 			label6.Size = new Size(63, 15);
 			label6.TabIndex = 27;
@@ -456,15 +489,15 @@
 			// 
 			// groupBox3
 			// 
+			groupBox3.Controls.Add(rdoCT);
+			groupBox3.Controls.Add(rdoDblChk);
 			groupBox3.Controls.Add(btnFilePathDest);
 			groupBox3.Controls.Add(label6);
 			groupBox3.Controls.Add(label2);
 			groupBox3.Controls.Add(txtFileName);
 			groupBox3.Controls.Add(txtFilePathDest);
-			groupBox3.Controls.Add(rdoDblChk);
-			groupBox3.Controls.Add(rdoCT);
 			groupBox3.ForeColor = SystemColors.ActiveCaptionText;
-			groupBox3.Location = new Point(13, 545);
+			groupBox3.Location = new Point(12, 610);
 			groupBox3.Name = "groupBox3";
 			groupBox3.Size = new Size(377, 121);
 			groupBox3.TabIndex = 28;
@@ -499,6 +532,7 @@
 			txtRawData.ReadOnly = true;
 			txtRawData.Size = new Size(280, 23);
 			txtRawData.TabIndex = 29;
+			txtRawData.TextChanged += txtRawData_TextChanged;
 			// 
 			// groupBox4
 			// 
@@ -516,9 +550,9 @@
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(243, 243, 243);
-			ClientSize = new Size(576, 677);
-			Controls.Add(groupBox4);
+			ClientSize = new Size(575, 743);
 			Controls.Add(groupBox3);
+			Controls.Add(groupBox4);
 			Controls.Add(button1);
 			Controls.Add(groupBox2);
 			Controls.Add(groupBox1);
@@ -530,7 +564,10 @@
 			groupBox1.ResumeLayout(false);
 			groupBox1.PerformLayout();
 			groupBox2.ResumeLayout(false);
-			groupBox2.PerformLayout();
+			groupBox6.ResumeLayout(false);
+			groupBox6.PerformLayout();
+			groupBox5.ResumeLayout(false);
+			groupBox5.PerformLayout();
 			groupBox3.ResumeLayout(false);
 			groupBox3.PerformLayout();
 			groupBox4.ResumeLayout(false);
@@ -583,5 +620,7 @@
 		private GroupBox groupBox4;
 		private Label label7;
 		private TextBox txtFloatLen;
+		private GroupBox groupBox5;
+		private GroupBox groupBox6;
 	}
 }
