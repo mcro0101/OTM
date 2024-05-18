@@ -30,46 +30,48 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			label1 = new Label();
-			btnRun = new Button();
-			radioButton1 = new RadioButton();
-			radioButton2 = new RadioButton();
-			textBox1 = new TextBox();
-			textBox2 = new TextBox();
-			textBox3 = new TextBox();
-			textBox4 = new TextBox();
-			textBox5 = new TextBox();
+			btnGenerate = new Button();
+			rdoCT = new RadioButton();
+			rdoDblChk = new RadioButton();
+			txtDate = new TextBox();
+			txtCD = new TextBox();
+			txtWI = new TextBox();
+			txtRO1 = new TextBox();
+			txtRO2 = new TextBox();
 			label3 = new Label();
 			label4 = new Label();
 			label5 = new Label();
 			groupBox1 = new GroupBox();
 			label12 = new Label();
-			textBox6 = new TextBox();
+			txtNumJoint = new TextBox();
 			label11 = new Label();
 			groupBox2 = new GroupBox();
+			label7 = new Label();
+			txtFloatLen = new TextBox();
 			label19 = new Label();
-			radioButton5 = new RadioButton();
-			radioButton6 = new RadioButton();
-			radioButton4 = new RadioButton();
+			rdoFloatNo = new RadioButton();
+			rdoFloatYes = new RadioButton();
+			rdoShoeNo = new RadioButton();
 			label13 = new Label();
-			radioButton3 = new RadioButton();
+			rdoShoeYes = new RadioButton();
 			label14 = new Label();
-			textBox7 = new TextBox();
+			txtFloatPos = new TextBox();
 			label15 = new Label();
 			label16 = new Label();
-			textBox9 = new TextBox();
-			textBox10 = new TextBox();
-			textBox12 = new TextBox();
+			txtShoeType = new TextBox();
+			txtShoeLen = new TextBox();
+			txtFloatType = new TextBox();
 			label17 = new Label();
 			label18 = new Label();
 			button1 = new Button();
-			textBox8 = new TextBox();
-			textBox11 = new TextBox();
+			txtFilePathDest = new TextBox();
+			txtFileName = new TextBox();
 			label2 = new Label();
 			label6 = new Label();
 			groupBox3 = new GroupBox();
-			btnFilePath = new Button();
-			btnRawData = new Button();
-			textBox13 = new TextBox();
+			btnFilePathDest = new Button();
+			btnImportRaw = new Button();
+			txtRawData = new TextBox();
 			groupBox4 = new GroupBox();
 			groupBox1.SuspendLayout();
 			groupBox2.SuspendLayout();
@@ -80,83 +82,84 @@
 			// label1
 			// 
 			label1.AutoSize = true;
-			label1.Location = new Point(9, 92);
+			label1.Location = new Point(19, 92);
 			label1.Name = "label1";
 			label1.Size = new Size(99, 15);
 			label1.TabIndex = 1;
 			label1.Text = "Well Information:";
 			// 
-			// btnRun
+			// btnGenerate
 			// 
-			btnRun.Font = new Font("Segoe UI", 13F);
-			btnRun.Location = new Point(528, 564);
-			btnRun.Name = "btnRun";
-			btnRun.Size = new Size(117, 95);
-			btnRun.TabIndex = 5;
-			btnRun.Text = "Generate";
-			btnRun.UseVisualStyleBackColor = true;
+			btnGenerate.Font = new Font("Segoe UI", 13F);
+			btnGenerate.Location = new Point(429, 563);
+			btnGenerate.Name = "btnGenerate";
+			btnGenerate.Size = new Size(117, 95);
+			btnGenerate.TabIndex = 5;
+			btnGenerate.Text = "Generate";
+			btnGenerate.UseVisualStyleBackColor = true;
+			btnGenerate.Click += btnGenerate_Click;
 			// 
-			// radioButton1
+			// rdoCT
 			// 
-			radioButton1.AutoSize = true;
-			radioButton1.Location = new Point(330, 41);
-			radioButton1.Name = "radioButton1";
-			radioButton1.Size = new Size(99, 19);
-			radioButton1.TabIndex = 6;
-			radioButton1.TabStop = true;
-			radioButton1.Text = "Double Check";
-			radioButton1.UseVisualStyleBackColor = true;
+			rdoCT.AutoSize = true;
+			rdoCT.Location = new Point(169, 41);
+			rdoCT.Name = "rdoCT";
+			rdoCT.Size = new Size(99, 19);
+			rdoCT.TabIndex = 6;
+			rdoCT.TabStop = true;
+			rdoCT.Text = "Double Check";
+			rdoCT.UseVisualStyleBackColor = true;
 			// 
-			// radioButton2
+			// rdoDblChk
 			// 
-			radioButton2.AutoSize = true;
-			radioButton2.Location = new Point(226, 41);
-			radioButton2.Name = "radioButton2";
-			radioButton2.Size = new Size(87, 19);
-			radioButton2.TabIndex = 7;
-			radioButton2.TabStop = true;
-			radioButton2.Text = "Casing Tally";
-			radioButton2.UseVisualStyleBackColor = true;
+			rdoDblChk.AutoSize = true;
+			rdoDblChk.Location = new Point(284, 41);
+			rdoDblChk.Name = "rdoDblChk";
+			rdoDblChk.Size = new Size(87, 19);
+			rdoDblChk.TabIndex = 7;
+			rdoDblChk.TabStop = true;
+			rdoDblChk.Text = "Casing Tally";
+			rdoDblChk.UseVisualStyleBackColor = true;
 			// 
-			// textBox1
+			// txtDate
 			// 
-			textBox1.Location = new Point(114, 31);
-			textBox1.Name = "textBox1";
-			textBox1.Size = new Size(176, 23);
-			textBox1.TabIndex = 8;
+			txtDate.Location = new Point(123, 31);
+			txtDate.Name = "txtDate";
+			txtDate.Size = new Size(180, 23);
+			txtDate.TabIndex = 8;
 			// 
-			// textBox2
+			// txtCD
 			// 
-			textBox2.Location = new Point(114, 60);
-			textBox2.Name = "textBox2";
-			textBox2.Size = new Size(176, 23);
-			textBox2.TabIndex = 9;
+			txtCD.Location = new Point(123, 60);
+			txtCD.Name = "txtCD";
+			txtCD.Size = new Size(180, 23);
+			txtCD.TabIndex = 9;
 			// 
-			// textBox3
+			// txtWI
 			// 
-			textBox3.Location = new Point(114, 89);
-			textBox3.Name = "textBox3";
-			textBox3.Size = new Size(176, 23);
-			textBox3.TabIndex = 10;
+			txtWI.Location = new Point(123, 89);
+			txtWI.Name = "txtWI";
+			txtWI.Size = new Size(180, 23);
+			txtWI.TabIndex = 10;
 			// 
-			// textBox4
+			// txtRO1
 			// 
-			textBox4.Location = new Point(114, 118);
-			textBox4.Name = "textBox4";
-			textBox4.Size = new Size(176, 23);
-			textBox4.TabIndex = 11;
+			txtRO1.Location = new Point(123, 118);
+			txtRO1.Name = "txtRO1";
+			txtRO1.Size = new Size(180, 23);
+			txtRO1.TabIndex = 11;
 			// 
-			// textBox5
+			// txtRO2
 			// 
-			textBox5.Location = new Point(114, 147);
-			textBox5.Name = "textBox5";
-			textBox5.Size = new Size(176, 23);
-			textBox5.TabIndex = 12;
+			txtRO2.Location = new Point(123, 147);
+			txtRO2.Name = "txtRO2";
+			txtRO2.Size = new Size(180, 23);
+			txtRO2.TabIndex = 12;
 			// 
 			// label3
 			// 
 			label3.AutoSize = true;
-			label3.Location = new Point(11, 121);
+			label3.Location = new Point(19, 121);
 			label3.Name = "label3";
 			label3.Size = new Size(97, 15);
 			label3.TabIndex = 13;
@@ -165,7 +168,7 @@
 			// label4
 			// 
 			label4.AutoSize = true;
-			label4.Location = new Point(24, 63);
+			label4.Location = new Point(19, 63);
 			label4.Name = "label4";
 			label4.Size = new Size(84, 15);
 			label4.TabIndex = 14;
@@ -174,7 +177,7 @@
 			// label5
 			// 
 			label5.AutoSize = true;
-			label5.Location = new Point(74, 34);
+			label5.Location = new Point(19, 34);
 			label5.Name = "label5";
 			label5.Size = new Size(34, 15);
 			label5.TabIndex = 15;
@@ -184,20 +187,20 @@
 			// 
 			groupBox1.Controls.Add(label12);
 			groupBox1.Controls.Add(label5);
-			groupBox1.Controls.Add(textBox6);
+			groupBox1.Controls.Add(txtNumJoint);
 			groupBox1.Controls.Add(label1);
 			groupBox1.Controls.Add(label11);
-			groupBox1.Controls.Add(textBox1);
-			groupBox1.Controls.Add(textBox2);
-			groupBox1.Controls.Add(textBox3);
-			groupBox1.Controls.Add(textBox4);
-			groupBox1.Controls.Add(textBox5);
+			groupBox1.Controls.Add(txtDate);
+			groupBox1.Controls.Add(txtCD);
+			groupBox1.Controls.Add(txtWI);
+			groupBox1.Controls.Add(txtRO1);
+			groupBox1.Controls.Add(txtRO2);
 			groupBox1.Controls.Add(label3);
 			groupBox1.Controls.Add(label4);
 			groupBox1.ForeColor = SystemColors.ActiveCaptionText;
 			groupBox1.Location = new Point(12, 4);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(443, 236);
+			groupBox1.Size = new Size(378, 225);
 			groupBox1.TabIndex = 21;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Job Details";
@@ -205,23 +208,23 @@
 			// label12
 			// 
 			label12.AutoSize = true;
-			label12.Location = new Point(10, 179);
+			label12.Location = new Point(19, 179);
 			label12.Name = "label12";
 			label12.Size = new Size(98, 15);
 			label12.TabIndex = 24;
 			label12.Text = "Number of Joints";
 			// 
-			// textBox6
+			// txtNumJoint
 			// 
-			textBox6.Location = new Point(114, 176);
-			textBox6.Name = "textBox6";
-			textBox6.Size = new Size(176, 23);
-			textBox6.TabIndex = 23;
+			txtNumJoint.Location = new Point(123, 176);
+			txtNumJoint.Name = "txtNumJoint";
+			txtNumJoint.Size = new Size(180, 23);
+			txtNumJoint.TabIndex = 23;
 			// 
 			// label11
 			// 
 			label11.AutoSize = true;
-			label11.Location = new Point(11, 150);
+			label11.Location = new Point(19, 150);
 			label11.Name = "label11";
 			label11.Size = new Size(97, 15);
 			label11.TabIndex = 22;
@@ -229,111 +232,129 @@
 			// 
 			// groupBox2
 			// 
+			groupBox2.Controls.Add(label7);
+			groupBox2.Controls.Add(txtFloatLen);
 			groupBox2.Controls.Add(label19);
-			groupBox2.Controls.Add(radioButton5);
-			groupBox2.Controls.Add(radioButton6);
-			groupBox2.Controls.Add(radioButton4);
+			groupBox2.Controls.Add(rdoFloatNo);
+			groupBox2.Controls.Add(rdoFloatYes);
+			groupBox2.Controls.Add(rdoShoeNo);
 			groupBox2.Controls.Add(label13);
-			groupBox2.Controls.Add(radioButton3);
+			groupBox2.Controls.Add(rdoShoeYes);
 			groupBox2.Controls.Add(label14);
-			groupBox2.Controls.Add(textBox7);
+			groupBox2.Controls.Add(txtFloatPos);
 			groupBox2.Controls.Add(label15);
 			groupBox2.Controls.Add(label16);
-			groupBox2.Controls.Add(textBox9);
-			groupBox2.Controls.Add(textBox10);
-			groupBox2.Controls.Add(textBox12);
+			groupBox2.Controls.Add(txtShoeType);
+			groupBox2.Controls.Add(txtShoeLen);
+			groupBox2.Controls.Add(txtFloatType);
 			groupBox2.Controls.Add(label17);
 			groupBox2.Controls.Add(label18);
 			groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-			groupBox2.Location = new Point(12, 241);
+			groupBox2.Location = new Point(13, 291);
 			groupBox2.Name = "groupBox2";
-			groupBox2.Size = new Size(443, 236);
+			groupBox2.Size = new Size(378, 252);
 			groupBox2.TabIndex = 22;
 			groupBox2.TabStop = false;
 			groupBox2.Text = "Float Equipment";
 			// 
+			// label7
+			// 
+			label7.AutoSize = true;
+			label7.Location = new Point(18, 149);
+			label7.Name = "label7";
+			label7.Size = new Size(76, 15);
+			label7.TabIndex = 29;
+			label7.Text = "Float Length:";
+			// 
+			// txtFloatLen
+			// 
+			txtFloatLen.Location = new Point(122, 146);
+			txtFloatLen.Name = "txtFloatLen";
+			txtFloatLen.Size = new Size(180, 23);
+			txtFloatLen.TabIndex = 28;
+			// 
 			// label19
 			// 
 			label19.AutoSize = true;
-			label19.Location = new Point(12, 194);
+			label19.Location = new Point(4, 225);
 			label19.Name = "label19";
 			label19.Size = new Size(119, 15);
 			label19.TabIndex = 27;
 			label19.Text = "(After  Joint Number)";
 			// 
-			// radioButton5
+			// rdoFloatNo
 			// 
-			radioButton5.AutoSize = true;
-			radioButton5.Location = new Point(227, 117);
-			radioButton5.Name = "radioButton5";
-			radioButton5.Size = new Size(41, 19);
-			radioButton5.TabIndex = 26;
-			radioButton5.TabStop = true;
-			radioButton5.Text = "No";
-			radioButton5.UseVisualStyleBackColor = true;
+			rdoFloatNo.AutoSize = true;
+			rdoFloatNo.Location = new Point(227, 120);
+			rdoFloatNo.Name = "rdoFloatNo";
+			rdoFloatNo.Size = new Size(41, 19);
+			rdoFloatNo.TabIndex = 26;
+			rdoFloatNo.TabStop = true;
+			rdoFloatNo.Text = "No";
+			rdoFloatNo.UseVisualStyleBackColor = true;
 			// 
-			// radioButton6
+			// rdoFloatYes
 			// 
-			radioButton6.AutoSize = true;
-			radioButton6.Location = new Point(158, 117);
-			radioButton6.Name = "radioButton6";
-			radioButton6.Size = new Size(42, 19);
-			radioButton6.TabIndex = 25;
-			radioButton6.TabStop = true;
-			radioButton6.Text = "Yes";
-			radioButton6.UseVisualStyleBackColor = true;
+			rdoFloatYes.AutoSize = true;
+			rdoFloatYes.Location = new Point(147, 120);
+			rdoFloatYes.Name = "rdoFloatYes";
+			rdoFloatYes.Size = new Size(42, 19);
+			rdoFloatYes.TabIndex = 25;
+			rdoFloatYes.TabStop = true;
+			rdoFloatYes.Text = "Yes";
+			rdoFloatYes.UseVisualStyleBackColor = true;
 			// 
-			// radioButton4
+			// rdoShoeNo
 			// 
-			radioButton4.AutoSize = true;
-			radioButton4.Location = new Point(227, 30);
-			radioButton4.Name = "radioButton4";
-			radioButton4.Size = new Size(41, 19);
-			radioButton4.TabIndex = 24;
-			radioButton4.TabStop = true;
-			radioButton4.Text = "No";
-			radioButton4.UseVisualStyleBackColor = true;
+			rdoShoeNo.AutoSize = true;
+			rdoShoeNo.Location = new Point(227, 29);
+			rdoShoeNo.Name = "rdoShoeNo";
+			rdoShoeNo.Size = new Size(41, 19);
+			rdoShoeNo.TabIndex = 24;
+			rdoShoeNo.TabStop = true;
+			rdoShoeNo.Text = "No";
+			rdoShoeNo.UseVisualStyleBackColor = true;
 			// 
 			// label13
 			// 
 			label13.AutoSize = true;
-			label13.Location = new Point(52, 179);
+			label13.Location = new Point(18, 207);
 			label13.Name = "label13";
 			label13.Size = new Size(82, 15);
 			label13.TabIndex = 24;
 			label13.Text = "Float Position:";
 			// 
-			// radioButton3
+			// rdoShoeYes
 			// 
-			radioButton3.AutoSize = true;
-			radioButton3.Location = new Point(158, 30);
-			radioButton3.Name = "radioButton3";
-			radioButton3.Size = new Size(42, 19);
-			radioButton3.TabIndex = 23;
-			radioButton3.TabStop = true;
-			radioButton3.Text = "Yes";
-			radioButton3.UseVisualStyleBackColor = true;
+			rdoShoeYes.AutoSize = true;
+			rdoShoeYes.Location = new Point(147, 29);
+			rdoShoeYes.Name = "rdoShoeYes";
+			rdoShoeYes.Size = new Size(42, 19);
+			rdoShoeYes.TabIndex = 23;
+			rdoShoeYes.TabStop = true;
+			rdoShoeYes.Text = "Yes";
+			rdoShoeYes.UseVisualStyleBackColor = true;
 			// 
 			// label14
 			// 
 			label14.AutoSize = true;
-			label14.Location = new Point(95, 34);
+			label14.Location = new Point(18, 33);
 			label14.Name = "label14";
 			label14.Size = new Size(36, 15);
 			label14.TabIndex = 15;
 			label14.Text = "Shoe:";
 			// 
-			// textBox7
+			// txtFloatPos
 			// 
-			textBox7.Location = new Point(137, 186);
-			textBox7.Name = "textBox7";
-			textBox7.Size = new Size(176, 23);
-			textBox7.TabIndex = 23;
+			txtFloatPos.Location = new Point(122, 211);
+			txtFloatPos.Name = "txtFloatPos";
+			txtFloatPos.Size = new Size(180, 23);
+			txtFloatPos.TabIndex = 23;
 			// 
 			// label15
 			// 
 			label15.AutoSize = true;
-			label15.Location = new Point(55, 92);
+			label15.Location = new Point(18, 91);
 			label15.Name = "label15";
 			label15.Size = new Size(76, 15);
 			label15.TabIndex = 1;
@@ -342,37 +363,37 @@
 			// label16
 			// 
 			label16.AutoSize = true;
-			label16.Location = new Point(55, 150);
+			label16.Location = new Point(20, 178);
 			label16.Name = "label16";
-			label16.Size = new Size(76, 15);
+			label16.Size = new Size(60, 15);
 			label16.TabIndex = 22;
-			label16.Text = "Float Length:";
+			label16.Text = "Float Type";
 			// 
-			// textBox9
+			// txtShoeType
 			// 
-			textBox9.Location = new Point(137, 60);
-			textBox9.Name = "textBox9";
-			textBox9.Size = new Size(176, 23);
-			textBox9.TabIndex = 9;
+			txtShoeType.Location = new Point(122, 54);
+			txtShoeType.Name = "txtShoeType";
+			txtShoeType.Size = new Size(180, 23);
+			txtShoeType.TabIndex = 9;
 			// 
-			// textBox10
+			// txtShoeLen
 			// 
-			textBox10.Location = new Point(137, 89);
-			textBox10.Name = "textBox10";
-			textBox10.Size = new Size(176, 23);
-			textBox10.TabIndex = 10;
+			txtShoeLen.Location = new Point(122, 88);
+			txtShoeLen.Name = "txtShoeLen";
+			txtShoeLen.Size = new Size(180, 23);
+			txtShoeLen.TabIndex = 10;
 			// 
-			// textBox12
+			// txtFloatType
 			// 
-			textBox12.Location = new Point(137, 147);
-			textBox12.Name = "textBox12";
-			textBox12.Size = new Size(176, 23);
-			textBox12.TabIndex = 12;
+			txtFloatType.Location = new Point(122, 175);
+			txtFloatType.Name = "txtFloatType";
+			txtFloatType.Size = new Size(180, 23);
+			txtFloatType.TabIndex = 12;
 			// 
 			// label17
 			// 
 			label17.AutoSize = true;
-			label17.Location = new Point(95, 121);
+			label17.Location = new Point(20, 120);
 			label17.Name = "label17";
 			label17.Size = new Size(36, 15);
 			label17.TabIndex = 13;
@@ -381,7 +402,7 @@
 			// label18
 			// 
 			label18.AutoSize = true;
-			label18.Location = new Point(68, 63);
+			label18.Location = new Point(18, 62);
 			label18.Name = "label18";
 			label18.Size = new Size(63, 15);
 			label18.TabIndex = 14;
@@ -391,28 +412,29 @@
 			// 
 			button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
 			button1.BackgroundImageLayout = ImageLayout.Stretch;
-			button1.FlatAppearance.BorderSize = 0;
+			button1.FlatAppearance.BorderColor = Color.LightGray;
 			button1.FlatStyle = FlatStyle.Flat;
 			button1.ImageAlign = ContentAlignment.MiddleRight;
-			button1.Location = new Point(476, 12);
+			button1.Location = new Point(398, 12);
 			button1.Name = "button1";
 			button1.Size = new Size(169, 142);
 			button1.TabIndex = 23;
 			button1.UseVisualStyleBackColor = true;
 			// 
-			// textBox8
+			// txtFilePathDest
 			// 
-			textBox8.Location = new Point(21, 90);
-			textBox8.Name = "textBox8";
-			textBox8.Size = new Size(335, 23);
-			textBox8.TabIndex = 25;
+			txtFilePathDest.Location = new Point(21, 90);
+			txtFilePathDest.Name = "txtFilePathDest";
+			txtFilePathDest.ReadOnly = true;
+			txtFilePathDest.Size = new Size(280, 23);
+			txtFilePathDest.TabIndex = 25;
 			// 
-			// textBox11
+			// txtFileName
 			// 
-			textBox11.Location = new Point(21, 40);
-			textBox11.Name = "textBox11";
-			textBox11.Size = new Size(118, 23);
-			textBox11.TabIndex = 24;
+			txtFileName.Location = new Point(21, 40);
+			txtFileName.Name = "txtFileName";
+			txtFileName.Size = new Size(118, 23);
+			txtFileName.TabIndex = 24;
 			// 
 			// label2
 			// 
@@ -434,56 +456,57 @@
 			// 
 			// groupBox3
 			// 
-			groupBox3.Controls.Add(btnFilePath);
+			groupBox3.Controls.Add(btnFilePathDest);
 			groupBox3.Controls.Add(label6);
 			groupBox3.Controls.Add(label2);
-			groupBox3.Controls.Add(textBox11);
-			groupBox3.Controls.Add(textBox8);
-			groupBox3.Controls.Add(radioButton2);
-			groupBox3.Controls.Add(radioButton1);
+			groupBox3.Controls.Add(txtFileName);
+			groupBox3.Controls.Add(txtFilePathDest);
+			groupBox3.Controls.Add(rdoDblChk);
+			groupBox3.Controls.Add(rdoCT);
 			groupBox3.ForeColor = SystemColors.ActiveCaptionText;
-			groupBox3.Location = new Point(12, 545);
+			groupBox3.Location = new Point(13, 545);
 			groupBox3.Name = "groupBox3";
-			groupBox3.Size = new Size(443, 126);
+			groupBox3.Size = new Size(377, 121);
 			groupBox3.TabIndex = 28;
 			groupBox3.TabStop = false;
 			groupBox3.Text = "Save File";
 			// 
-			// btnFilePath
+			// btnFilePathDest
 			// 
-			btnFilePath.Location = new Point(354, 90);
-			btnFilePath.Name = "btnFilePath";
-			btnFilePath.Size = new Size(75, 23);
-			btnFilePath.TabIndex = 28;
-			btnFilePath.Text = "Open...";
-			btnFilePath.UseVisualStyleBackColor = true;
-			btnFilePath.Click += btnFilePath_Click;
+			btnFilePathDest.Location = new Point(297, 90);
+			btnFilePathDest.Name = "btnFilePathDest";
+			btnFilePathDest.Size = new Size(75, 23);
+			btnFilePathDest.TabIndex = 28;
+			btnFilePathDest.Text = "Open...";
+			btnFilePathDest.UseVisualStyleBackColor = true;
+			btnFilePathDest.Click += btnFilePath_Click;
 			// 
-			// btnRawData
+			// btnImportRaw
 			// 
-			btnRawData.FlatAppearance.BorderColor = Color.Black;
-			btnRawData.Location = new Point(353, 21);
-			btnRawData.Name = "btnRawData";
-			btnRawData.Size = new Size(75, 23);
-			btnRawData.TabIndex = 30;
-			btnRawData.Text = "Open...";
-			btnRawData.UseVisualStyleBackColor = true;
-			btnRawData.Click += btnRawData_Click;
+			btnImportRaw.FlatAppearance.BorderColor = Color.Black;
+			btnImportRaw.Location = new Point(297, 22);
+			btnImportRaw.Name = "btnImportRaw";
+			btnImportRaw.Size = new Size(75, 23);
+			btnImportRaw.TabIndex = 30;
+			btnImportRaw.Text = "Open...";
+			btnImportRaw.UseVisualStyleBackColor = true;
+			btnImportRaw.Click += btnRawData_Click;
 			// 
-			// textBox13
+			// txtRawData
 			// 
-			textBox13.Location = new Point(21, 22);
-			textBox13.Name = "textBox13";
-			textBox13.Size = new Size(335, 23);
-			textBox13.TabIndex = 29;
+			txtRawData.Location = new Point(21, 22);
+			txtRawData.Name = "txtRawData";
+			txtRawData.ReadOnly = true;
+			txtRawData.Size = new Size(280, 23);
+			txtRawData.TabIndex = 29;
 			// 
 			// groupBox4
 			// 
-			groupBox4.Controls.Add(textBox13);
-			groupBox4.Controls.Add(btnRawData);
-			groupBox4.Location = new Point(12, 483);
+			groupBox4.Controls.Add(txtRawData);
+			groupBox4.Controls.Add(btnImportRaw);
+			groupBox4.Location = new Point(12, 232);
 			groupBox4.Name = "groupBox4";
-			groupBox4.Size = new Size(443, 56);
+			groupBox4.Size = new Size(378, 56);
 			groupBox4.TabIndex = 32;
 			groupBox4.TabStop = false;
 			groupBox4.Text = "Raw Data Input file:";
@@ -492,15 +515,17 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			BackColor = SystemColors.ActiveBorder;
-			ClientSize = new Size(657, 677);
+			BackColor = Color.FromArgb(243, 243, 243);
+			ClientSize = new Size(576, 677);
 			Controls.Add(groupBox4);
 			Controls.Add(groupBox3);
 			Controls.Add(button1);
 			Controls.Add(groupBox2);
 			Controls.Add(groupBox1);
-			Controls.Add(btnRun);
+			Controls.Add(btnGenerate);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Name = "Form1";
+			Text = "OTM Report Generator";
 			Load += Form1_Load;
 			groupBox1.ResumeLayout(false);
 			groupBox1.PerformLayout();
@@ -515,46 +540,48 @@
 
 		#endregion
 		private Label label1;
-		private Button btnRun;
-		private RadioButton radioButton1;
-		private RadioButton radioButton2;
-		private TextBox textBox1;
-		private TextBox textBox2;
-		private TextBox textBox3;
-		private TextBox textBox4;
-		private TextBox textBox5;
+		private Button btnGenerate;
+		private RadioButton rdoCT;
+		private RadioButton rdoDblChk;
+		private TextBox txtDate;
+		private TextBox txtCD;
+		private TextBox txtWI;
+		private TextBox txtRO1;
+		private TextBox txtRO2;
 		private Label label3;
 		private Label label4;
 		private Label label5;
 		private GroupBox groupBox1;
 		private Label label12;
-		private TextBox textBox6;
+		private TextBox txtNumJoint;
 		private Label label11;
 		private GroupBox groupBox2;
 		private Label label19;
-		private RadioButton radioButton5;
-		private RadioButton radioButton6;
-		private RadioButton radioButton4;
+		private RadioButton rdoFloatNo;
+		private RadioButton rdoFloatYes;
+		private RadioButton rdoShoeNo;
 		private Label label13;
-		private RadioButton radioButton3;
+		private RadioButton rdoShoeYes;
 		private Label label14;
-		private TextBox textBox7;
+		private TextBox txtFloatPos;
 		private Label label15;
 		private Label label16;
-		private TextBox textBox9;
-		private TextBox textBox10;
-		private TextBox textBox12;
+		private TextBox txtShoeType;
+		private TextBox txtShoeLen;
+		private TextBox txtFloatType;
 		private Label label17;
 		private Label label18;
 		private Button button1;
-		private TextBox textBox8;
-		private TextBox textBox11;
+		private TextBox txtFilePathDest;
+		private TextBox txtFileName;
 		private Label label2;
 		private Label label6;
 		private GroupBox groupBox3;
-		private Button btnFilePath;
-		private Button btnRawData;
-		private TextBox textBox13;
+		private Button btnFilePathDest;
+		private Button btnImportRaw;
+		private TextBox txtRawData;
 		private GroupBox groupBox4;
+		private Label label7;
+		private TextBox txtFloatLen;
 	}
 }
