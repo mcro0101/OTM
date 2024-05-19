@@ -149,6 +149,7 @@ namespace Russ_Tool
 				string newFileDest = pFileDest + "\\" + pFilename + ".xlsx";
 				classInit.cFileManager.CopyFile(valReport, newFileDest);
 				classInit.cxlReader.ReplaceTextInExcel(newFileDest, pFilename, classInit.cData.InsertDictionary());
+				classInit.cxlReader.InsertDataToDoubleCheck(pRawDataPath, newFileDest, newFileDest, pFilename,int.Parse(pNumJoints));
 			}
 		}
 

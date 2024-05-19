@@ -198,8 +198,8 @@ namespace Russ_Tool
 					workbook.Save();
 				}
 
-				string pathDir = Path.GetDirectoryName(filePath);
-				MessageBox.Show($"{fileName} updated successfully.\nLocated at: {pathDir}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				//string pathDir = Path.GetDirectoryName(filePath);
+				//MessageBox.Show($"{fileName} updated successfully.\nLocated at: {pathDir}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
@@ -267,5 +267,112 @@ namespace Russ_Tool
 		}
 
 		// ---------------------------------------------------------------
+
+		public void InsertDataToDoubleCheck(string pRawDataPath, string pDoubleCheckPath, string pfilePath, string pfileName, int pLastRow)
+		{
+			try
+			{
+				using (var wbRawData = new XLWorkbook(pRawDataPath))
+				using (var wbDblChk = new XLWorkbook(pDoubleCheckPath))
+				{
+					var wsDblchk = wbDblChk.Worksheet("Double Check Tally");
+					var wsRawDataSheet2 = wbRawData.Worksheet("Sheet1");
+
+					//var lastRow = wsRawDataSheet2.LastRowUsed().RowNumber();
+					pLastRow = pLastRow + 1;
+					// Copy data row by row and merge cells per row
+					for (int row = 2; row <= pLastRow; row++)
+					{
+						try
+						{
+							var sourceCellB = wsRawDataSheet2.Cell(row, "B");
+							var sourceCellC = wsRawDataSheet2.Cell(row, "C");
+							var destCellB = wsDblchk.Cell(row + 2, "B");
+							var destCellE = wsDblchk.Cell(row + 2, "E");
+
+							// Convert meters to feet
+							double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
+							double? valueCInFeet = ConvertMetersToFeet(sourceCellC.GetString());
+
+							// Copy converted data if conversion is successful
+							if (valueBInFeet.HasValue)
+							{
+								destCellB.SetValue(valueBInFeet.Value);
+							}
+							else
+							{
+								destCellB.Clear(); // Clear cell if conversion fails
+							}
+
+							if (valueCInFeet.HasValue)
+							{
+								destCellE.SetValue(valueCInFeet.Value);
+							}
+							else
+							{
+								destCellE.Clear(); // Clear cell if conversion fails
+							}
+
+							// Merge cells
+							wsDblchk.Range(destCellB, destCellB.CellRight(2)).Merge();
+							wsDblchk.Range(destCellE, destCellE.CellRight(2)).Merge();
+						}
+						catch (Exception ex)
+						{
+							MessageBox.Show($"Error processing row {row}: {ex.Message}", "Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+					}
+
+					try
+					{
+						wbDblChk.Save();
+						// Display success message
+						string pathDir = Path.GetDirectoryName(pfilePath);
+						MessageBox.Show($"{pfileName} updated successfully.\nLocated at: {Path.Combine(pathDir, pfileName)}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show($"Error saving the file: {ex.Message}", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+
+		// ---------------------------------------------------------------
+
+		public double? ConvertMetersToFeet(string input)
+		{
+			try
+			{
+				// Attempt to parse the input string to a double
+				if (double.TryParse(input, out double meters))
+				{
+					// Convert meters to feet (1 meter = 3.28084 feet)
+					double feet = meters * 3.28084;
+					// Return the result
+					return feet;
+				}
+				else
+				{
+					// Return null if input is not a number
+					return null;
+				}
+			}
+			catch (Exception ex)
+			{
+				// Log the exception (optional) and return null
+				Console.WriteLine($"An error occurred: {ex.Message}");
+				return null;
+			}
+		}
+
+
+		// ---------------------------------------------------------------
+
 	}
 }
