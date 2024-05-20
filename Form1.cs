@@ -19,6 +19,7 @@ namespace Russ_Tool
 		public string pFilename = "";
 		public string pFileDest = "";
 		public string SelectedTemplate = "";
+		public int SelectedReport = 0; //0 For Double Check, 1 for Casing Tally
 		public Form1()
 		{
 			InitializeComponent();
@@ -54,7 +55,7 @@ namespace Russ_Tool
 		}
 		private void SetFileName()
 		{
-			string nowDate = DateTime.Now.ToString("dd-MM-yyyy");
+			string nowDate = DateTime.Now.ToString("MM-dd-yy");
 			nowDate = nowDate.Replace("-", "");
 			if (rdoDblChk.Checked == true)
 			{
@@ -113,8 +114,8 @@ namespace Russ_Tool
 		}
 		private string GetSelectedReport()
 		{
-			if (rdoDblChk.Checked == true) { SelectedTemplate = classInit.cData.dDoubleChecke; }
-			if (rdoCT.Checked == true) { SelectedTemplate = classInit.cData.dCasingTallySF; }
+			if (rdoDblChk.Checked == true) { SelectedTemplate = classInit.cData.dDoubleChecke; SelectedReport = 0; }
+			if (rdoCT.Checked == true) { SelectedTemplate = classInit.cData.dCasingTallySF; SelectedReport = 1; }
 			return SelectedTemplate;
 		}
 
@@ -142,14 +143,23 @@ namespace Russ_Tool
 			StoreData();
 			string pPath = pFileDest;
 			string valReport = GetSelectedReport();
-
+		
 			if (pPath != "")
 			{
 				//classInit.cxlReader.ReadDataFromExcel(pPath, "Sheet1");
 				string newFileDest = pFileDest + "\\" + pFilename + ".xlsx";
 				classInit.cFileManager.CopyFile(valReport, newFileDest);
 				classInit.cxlReader.ReplaceTextInExcel(newFileDest, pFilename, classInit.cData.InsertDictionary());
-				classInit.cxlReader.InsertDataToDoubleCheck(pRawDataPath, newFileDest, newFileDest, pFilename,int.Parse(pNumJoints));
+				if (SelectedReport == 0)
+				{
+					classInit.cxlReader.InsertDataToDoubleCheck(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
+				}
+				if (SelectedReport == 1)
+				{
+					//CT
+					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
+				}
+
 			}
 		}
 

@@ -374,5 +374,88 @@ namespace Russ_Tool
 
 		// ---------------------------------------------------------------
 
+
+		public void InsertDataToCasingTally(string pRawDataPath, string pCTPath, string pfilePath, string pfileName, int pLastRow)
+		{
+			try
+			{
+				using (var wbRawData = new XLWorkbook(pRawDataPath))
+				using (var wbDblChk = new XLWorkbook(pCTPath))
+				{
+					var wsRawDataSheet2 = wbRawData.Worksheet("Sheet1");
+					var wsCT = wbDblChk.Worksheet("Casing Tally");
+					
+
+					//var lastRow = wsRawDataSheet2.LastRowUsed().RowNumber();
+					pLastRow = pLastRow + 1;
+					// Copy data row by row and merge cells per row
+					for (int row = 2; row <= pLastRow; row++)
+					{
+						try
+						{
+							var sourceCellB = wsRawDataSheet2.Cell(row, "B");
+							var sourceCellC = wsRawDataSheet2.Cell(row, "C");
+							var destCellB = wsCT.Cell(row + 2, "B");
+							var destCellC = wsCT.Cell(row + 2, "C");
+
+							// Convert meters to feet
+							double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
+							double? valueCInFeet = 0;
+
+							
+
+							if (row == 3)
+							{
+								destCellB = wsCT.Cell(row + 3, "B");
+							}
+							if (row == 2)
+							{
+								valueCInFeet = valueBInFeet;
+							}
+							else
+							{
+								sourceCellC = wsRawDataSheet2.Cell(row - 1, "C");
+								valueCInFeet = valueBInFeet + ConvertMetersToFeet(sourceCellC.GetString());
+							}
+
+							valueCInFeet = valueCInFeet + valueBInFeet;
+							// Copy converted data if conversion is successful
+							if (valueBInFeet.HasValue)
+							{
+								destCellB.SetValue(valueBInFeet.Value);
+								destCellC.SetValue(valueCInFeet.Value);
+							}
+							else
+							{
+								destCellB.Clear(); // Clear cell if conversion fails
+							}
+		
+						}
+						catch (Exception ex)
+						{
+							MessageBox.Show($"Error processing row {row}: {ex.Message}", "Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+					}
+
+					try
+					{
+						wbDblChk.Save();
+						// Display success message
+						string pathDir = Path.GetDirectoryName(pfilePath);
+						MessageBox.Show($"{pfileName} updated successfully.\nLocated at: {Path.Combine(pathDir, pfileName)}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show($"Error saving the file: {ex.Message}", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+
 	}
 }
