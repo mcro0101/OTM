@@ -39,7 +39,7 @@ namespace Russ_Tool
 		public string dFloatLength { get; set; }
 
 		// Float Position
-		public string dFloatPosition { get; set; }
+		public int dFloatPosition { get; set; }
 
 		// File Name of the File
 		public string dFileName { get; set; }

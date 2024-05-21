@@ -15,11 +15,14 @@ namespace Russ_Tool
 		public string pShoeType = "";
 		public string pShoeLen = "";
 		public string pFloatLen = "";
-		public string pFloatPos = "";
+		public int pFloatPos = 0;
 		public string pFilename = "";
 		public string pFileDest = "";
 		public string SelectedTemplate = "";
 		public int SelectedReport = 0; //0 For Double Check, 1 for Casing Tally
+		public bool shoeExist = false;
+		public bool floatExist = false;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -101,10 +104,19 @@ namespace Russ_Tool
 			pShoeType = txtShoeType.Text;
 			pShoeLen = txtShoeLen.Text;
 			pFloatLen = txtFloatLen.Text;
-			pFloatPos = txtFloatPos.Text;
+			if (string.IsNullOrEmpty(txtFloatPos.Text) ==false) { pFloatPos = int.Parse(txtFloatPos.Text); }	
+			else { pFloatPos = 0; }
 			pFilename = txtFileName.Text;
 			pFileDest = txtFilePathDest.Text;
+			InitializeShoeFloat();
+		}
 
+		private void InitializeShoeFloat()
+		{
+			if (rdoShoeNo.Checked == true) { shoeExist = false; } else { shoeExist = true; }
+			if (rdoShoeYes.Checked == true) { shoeExist = true; } else { shoeExist = false; }
+			if (rdoFloatNo.Checked == true) { floatExist = false; } else { floatExist = true; }
+			if (rdoFloatYes.Checked == true) { floatExist = true; } else { floatExist = false; }
 		}
 
 		private void Initialize()
@@ -156,7 +168,7 @@ namespace Russ_Tool
 				}
 				if (SelectedReport == 1)
 				{
-					//CT
+					classInit.cxlReader.ShoeStartingPoint(shoeExist, floatExist, pFloatPos);
 					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
 				}
 
@@ -201,8 +213,10 @@ namespace Russ_Tool
 				//txtShoeLen.Enabled = false;
 				//txtShoeType.Enabled = false;
 				txtShoeLen.Text = "";
-				txtShoeType.Text = "";			
-				rdoFloatNo.Checked = true;
+				txtShoeType.Text = "";
+				txtShoeLen.Enabled = false;
+				txtShoeType.Enabled = false;
+
 			}
 			if(rdoShoeYes.Checked == true)
 			{
@@ -210,15 +224,15 @@ namespace Russ_Tool
 				//txtShoeType.Enabled = true;
 				txtShoeLen.Text = classInit.cIniConfig.iShoeLength;
 				txtShoeType.Text = classInit.cIniConfig.iShoeType;
-				rdoFloatYes.Checked = true;
+				txtShoeLen.Enabled = true;
+				txtShoeType.Enabled = true;
+
 			}
 
 		}
 
 		public void DisabledControlsFloat()
 		{
-
-
 			if (rdoFloatNo.Checked == true)
 			{
 				//txtFloatLen.Enabled = false;
@@ -227,7 +241,11 @@ namespace Russ_Tool
 				txtFloatLen.Text = "";
 				txtFloatType.Text = "";
 				txtFloatPos.Text = "";
-				rdoShoeNo.Checked = true;
+				txtFloatLen.Enabled = false;
+				txtFloatType.Enabled = false ;
+				txtFloatPos.Enabled = false ;
+
+
 			}
 			if (rdoFloatYes.Checked == true)
 			{
@@ -237,11 +255,13 @@ namespace Russ_Tool
 				txtFloatLen.Text = classInit.cIniConfig.iFloatLength;
 				txtFloatType.Text = classInit.cIniConfig.iFloatType;
 				txtFloatPos.Text = classInit.cIniConfig.iFloatPosition;
-				rdoShoeYes.Checked = true;
+				txtFloatLen.Enabled = true;
+				txtFloatType.Enabled = true;
+				txtFloatPos.Enabled = true;
+
 			}
 
 		}
-
 
 private static bool IsAllowedSpecialCharacter(char c)
 		{

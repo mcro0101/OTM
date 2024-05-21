@@ -11,6 +11,8 @@ namespace Russ_Tool
 {
 	public class ExcelReader
 	{
+		private int ShoeStart = 0;
+		private int FLoatPosStart = 0;
 		public List<List<string>> ReadDataFromExcel(string filePath, string sheetName)
 		{
 			List<List<string>> dataList = new List<List<string>>();
@@ -389,41 +391,37 @@ namespace Russ_Tool
 					//var lastRow = wsRawDataSheet2.LastRowUsed().RowNumber();
 					pLastRow = pLastRow + 1;
 					// Copy data row by row and merge cells per row
-					for (int row = 2; row <= pLastRow; row++)
+					for (int rawrow = 2; rawrow <= pLastRow; rawrow++)
 					{
 						try
 						{
-							var sourceCellB = wsRawDataSheet2.Cell(row, "B");
-							var sourceCellC = wsRawDataSheet2.Cell(row, "C");
-							var destCellB = wsCT.Cell(row + 2, "B");
-							var destCellC = wsCT.Cell(row + 2, "C");
+							int CTrow = rawrow + 2;
+							var sourceCellB = wsRawDataSheet2.Cell(rawrow, "B");
+							var sourceCellC = wsRawDataSheet2.Cell(rawrow, "C");
+							var destCellB = wsCT.Cell(CTrow, "B");
+							var destCellA = wsCT.Cell(CTrow, "A");
 
 							// Convert meters to feet
 							double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
-							double? valueCInFeet = 0;
+							int iValueA = rawrow-2; // Declare and initialize the variable
+							string valueA = iValueA.ToString();
 
-							
-
-							if (row == 3)
+							if (rawrow == 3)
 							{
-								destCellB = wsCT.Cell(row + 3, "B");
+								destCellB = wsCT.Cell(rawrow + 3, "B");
 							}
-							if (row == 2)
-							{
-								valueCInFeet = valueBInFeet;
-							}
+							if (rawrow == 2) { if (ShoeStart != 0) { valueA = GetShoeVal(ShoeStart); } }
 							else
 							{
-								sourceCellC = wsRawDataSheet2.Cell(row - 1, "C");
-								valueCInFeet = valueBInFeet + ConvertMetersToFeet(sourceCellC.GetString());
+								
+								
 							}
 
-							valueCInFeet = valueCInFeet + valueBInFeet;
 							// Copy converted data if conversion is successful
 							if (valueBInFeet.HasValue)
 							{
 								destCellB.SetValue(valueBInFeet.Value);
-								destCellC.SetValue(valueCInFeet.Value);
+								destCellA.SetValue(valueA);
 							}
 							else
 							{
@@ -433,7 +431,7 @@ namespace Russ_Tool
 						}
 						catch (Exception ex)
 						{
-							MessageBox.Show($"Error processing row {row}: {ex.Message}", "Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							MessageBox.Show($"Error processing row {rawrow}: {ex.Message}", "Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						}
 					}
 
@@ -456,6 +454,37 @@ namespace Russ_Tool
 			}
 		}
 
+
+		// ---------------------------------------------------------------
+
+		public int ShoeStartingPoint(bool pShoeExist, bool pFloatExist, int pFLoatPos)
+		{
+			int ret_val = 4;
+			FLoatPosStart = pFLoatPos;
+			if (pShoeExist == true) { ret_val = 4; ShoeStart = ret_val; }
+			else
+			{
+				ShoeStart = 0;
+				if (pFloatExist == true)
+				{
+					ShoeStart = pFLoatPos;
+					return pFLoatPos;
+
+
+				}
+				else { ShoeStart = ret_val;  return ret_val;  }
+			}
+			
+			return ret_val;
+		}
+
+		//--------------
+		public string GetShoeVal(int ShoeStart)
+		{
+			if (ShoeStart == 0) { return ""; }
+			return "Shoe";
+		}
+		//--------------
 
 	}
 }
