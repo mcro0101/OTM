@@ -42,6 +42,8 @@ namespace Russ_Tool
 			txtFloatLen.Text = classInit.cIniConfig.iFloatLength;
 			txtFloatType.Text = classInit.cIniConfig.iFloatType;
 			txtFloatPos.Text = classInit.cIniConfig.iFloatPosition;
+			classInit.cData.dDoubleChecke = classInit.cIniConfig.iDoubleCheckTemplatePath;
+			classInit.cData.dCasingTallySF = classInit.cIniConfig.iCasingTallyTemplatePath;
 			//txtFileName.Text = classInit.cIniConfig.iFileName;
 			txtRawData.Text = classInit.cIniConfig.iRawFile;
 			txtFilePathDest.Text = classInit.cIniConfig.iFileDestination;
@@ -91,8 +93,7 @@ namespace Russ_Tool
 		}
 		public void InitiliazeConst()
 		{
-			classInit.cData.dDoubleChecke = "C:\\TEMP\\Templates\\OTM Double Check (Feet) 400 Joints Long Version.xlsx";
-			classInit.cData.dCasingTallySF = "C:\\TEMP\\Templates\\OTM Casing Tally Template 400 Joint SHOE and FLOAT Version.xlsx";
+		
 			//classInit.cData.dCasingTallyNSNF = "C:\\TEMP\\Templates\\OTM Casing Tally Template 400 Joint NO SHOE NO FLOAT Version.xltx";
 			pDate = txtDate.Text;
 			pCD = txtCD.Text;

@@ -29,6 +29,8 @@ namespace Russ_Tool
 		public string iFileName = "";
 		public string iRawFile = "";
 		public string iFileDestination = "";
+		public string iDoubleCheckTemplatePath = "";
+		public string iCasingTallyTemplatePath = "";
 
 		public bool CheckConfigExist()
 		{
@@ -77,7 +79,8 @@ namespace Russ_Tool
 				iRawFile = DefVal["RawFile"].StringValue;
 				iFileDestination = DefVal["FileDestination"].StringValue;
 				iFloatType = DefVal["FloatType"].StringValue;
-
+				iDoubleCheckTemplatePath = DefVal["DoubleCheckTemplatePath"].StringValue;
+				iCasingTallyTemplatePath = DefVal["CasingTallyTemplatePath"].StringValue;
 
 			}
 			else { return false; }

@@ -228,7 +228,7 @@ namespace Russ_Tool
 				// Check if the file exists
 				if (!File.Exists(filePath))
 				{
-					MessageBox.Show($"The file {filePath} does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					//MessageBox.Show($"The file {filePath} does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return 0;
 				}
 
@@ -293,8 +293,11 @@ namespace Russ_Tool
 							var destCellE = wsDblchk.Cell(row + 2, "E");
 
 							// Convert meters to feet
-							double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
-							double? valueCInFeet = ConvertMetersToFeet(sourceCellC.GetString());
+							//double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
+							//double? valueCInFeet = ConvertMetersToFeet(sourceCellC.GetString());
+
+							double? valueBInFeet = ConvertStringToDouble(sourceCellB.GetString());
+							double? valueCInFeet = ConvertStringToDouble(sourceCellC.GetString());
 
 							// Copy converted data if conversion is successful
 							if (valueBInFeet.HasValue)
@@ -410,7 +413,7 @@ namespace Russ_Tool
 							{
 								destCellB = wsCT.Cell(rawrow + 3, "B");
 							}
-							if (rawrow == 2) { if (ShoeStart != 0) { valueA = GetShoeVal(ShoeStart); } }
+							if (rawrow == 2) { if (ShoeStart != 0) { valueA = GetShoeVal(ShoeStart); destCellA.SetValue(valueA); } }
 							else
 							{
 								
@@ -421,12 +424,10 @@ namespace Russ_Tool
 							if (valueBInFeet.HasValue)
 							{
 								destCellB.SetValue(valueBInFeet.Value);
-								destCellA.SetValue(valueA);
+								if (rawrow > 2) { destCellA.SetValue(iValueA); }
+									
 							}
-							else
-							{
-								destCellB.Clear(); // Clear cell if conversion fails
-							}
+
 		
 						}
 						catch (Exception ex)
@@ -455,6 +456,20 @@ namespace Russ_Tool
 		}
 
 
+		public bool InsertDataToColmnA(IXLCell destCellA,int pLastRow, int currentRow)
+		{
+			
+			int iValueA = currentRow - 2; // Declare and initialize the variable
+			string valueA = iValueA.ToString();
+			if (currentRow == 2) { if (ShoeStart != 0) { valueA = GetShoeVal(ShoeStart); destCellA.SetValue(valueA); } }
+			if (currentRow > 2) { destCellA.SetValue(iValueA); }
+			
+			
+			return false;
+		}
+
+
+
 		// ---------------------------------------------------------------
 
 		public int ShoeStartingPoint(bool pShoeExist, bool pFloatExist, int pFLoatPos)
@@ -478,13 +493,31 @@ namespace Russ_Tool
 			return ret_val;
 		}
 
-		//--------------
+		//--------------//--------------//--------------//--------------//--------------//--------------
 		public string GetShoeVal(int ShoeStart)
 		{
 			if (ShoeStart == 0) { return ""; }
 			return "Shoe";
 		}
-		//--------------
+		//--------------//--------------//--------------//--------------//--------------
+
+		public double ConvertStringToDouble(string input)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(input))
+				{
+					return 0;
+				}
+
+				return double.Parse(input);
+			}
+			catch
+			{
+				return 0;
+			}
+		}
+		//--------------//--------------//--------------//--------------//--------------
 
 	}
 }
