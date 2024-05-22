@@ -33,10 +33,10 @@ namespace Russ_Tool
 		public string dShoeType { get; set; }
 
 		// Shoe Length
-		public string dShoeLength { get; set; }
+		public double dShoeLength { get; set; }
 
 		// Float length
-		public string dFloatLength { get; set; }
+		public double dFloatLength { get; set; }
 
 		// Float Position
 		public int dFloatPosition { get; set; }

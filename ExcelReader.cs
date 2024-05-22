@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,8 @@ namespace Russ_Tool
 	{
 		private int ShoeStart = 0;
 		private int FLoatPosStart = 0;
+		private double Floatlen = 0;
+		private double ShoeLen = 0;
 		public List<List<string>> ReadDataFromExcel(string filePath, string sheetName)
 		{
 			List<List<string>> dataList = new List<List<string>>();
@@ -389,7 +392,7 @@ namespace Russ_Tool
 				{
 					var wsRawDataSheet2 = wbRawData.Worksheet("Sheet1");
 					var wsCT = wbDblChk.Worksheet("Casing Tally");
-					
+					bool stopper = false;
 
 					//var lastRow = wsRawDataSheet2.LastRowUsed().RowNumber();
 					pLastRow = pLastRow + 1;
@@ -403,29 +406,55 @@ namespace Russ_Tool
 							var sourceCellC = wsRawDataSheet2.Cell(rawrow, "C");
 							var destCellB = wsCT.Cell(CTrow, "B");
 							var destCellA = wsCT.Cell(CTrow, "A");
-
+							IXLCell destRowNumCounter = null;
+							IXLCell destShoeA = null;
+							IXLCell destFloatA = null;
 							// Convert meters to feet
 							double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
-							int iValueA = rawrow-2; // Declare and initialize the variable
-							string valueA = iValueA.ToString();
+							int iValueA = rawrow-1; // Declare and initialize the variable
+							//string valueA = iValueA.ToString();
 
 							if (rawrow == 3)
 							{
 								destCellB = wsCT.Cell(rawrow + 3, "B");
 							}
-							if (rawrow == 2) { if (ShoeStart != 0) { valueA = GetShoeVal(ShoeStart); destCellA.SetValue(valueA); } }
-							else
+
+							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = YES , FLOAT = YES~~~~~~~~~~~~~~~~~//
+							if (ShoeStart !=0 && FLoatPosStart != 0)
 							{
-								
-								
+								if (rawrow==2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); }
+								if (iValueA == FLoatPosStart + 1) { stopper = true; }
+								if (stopper == false) { destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA); }
+								if (FLoatPosStart != 0 && iValueA == (ShoeStart + FLoatPosStart)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue("Float"); }
+								if (stopper == true) { destRowNumCounter = wsCT.Cell(ShoeStart + iValueA + 1, "A"); destRowNumCounter.SetValue(iValueA); }
+							}					
+
+							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = NO , FLOAT = NO~~~~~~~~~~~~~~~~~//
+
+							if (ShoeStart == 0 && FLoatPosStart==0) { destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA); }
+
+							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = YES , FLOAT = NO~~~~~~~~~~~~~~~~~//
+							if (ShoeStart != 0 && FLoatPosStart == 0) 
+							{
+								if (rawrow == 2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); }
+								destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA);
 							}
 
-							// Copy converted data if conversion is successful
-							if (valueBInFeet.HasValue)
+							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = NO , FLOAT = YES~~~~~~~~~~~~~~~~~//
+							if (ShoeStart == 0 && FLoatPosStart != 0)
 							{
-								destCellB.SetValue(valueBInFeet.Value);
-								if (rawrow > 2) { destCellA.SetValue(iValueA); }
-									
+								if (iValueA == FLoatPosStart + 1) { stopper = true; }
+								if (stopper == false) { destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA); }
+								if (FLoatPosStart != 0 && iValueA == (FLoatPosStart + 1)) { destFloatA = wsCT.Cell(CTrow, "A"); destFloatA.SetValue("Float"); }
+								if (stopper == true) { destRowNumCounter = wsCT.Cell(CTrow + 1, "A"); destRowNumCounter.SetValue(iValueA); }
+							}
+
+								if (valueBInFeet.HasValue)
+							{
+								//destCellB.SetValue(valueBInFeet.Value);
+								//InsertDataToColmnA(destCellA, pLastRow, rawrow);
+
+
 							}
 
 		
@@ -456,24 +485,68 @@ namespace Russ_Tool
 		}
 
 
-		public bool InsertDataToColmnA(IXLCell destCellA,int pLastRow, int currentRow)
-		{
-			
-			int iValueA = currentRow - 2; // Declare and initialize the variable
-			string valueA = iValueA.ToString();
-			if (currentRow == 2) { if (ShoeStart != 0) { valueA = GetShoeVal(ShoeStart); destCellA.SetValue(valueA); } }
-			if (currentRow > 2) { destCellA.SetValue(iValueA); }
-			
-			
-			return false;
-		}
+		//public bool InsertDataToColmnA(IXLCell destCellA,int pLastRow, int currentRow)
+		//{
+		//	try
+		//	{
+		//		int iValueA = currentRow - 2; // Declare and initialize the variable
+		//		string valueA = iValueA.ToString();
+		//		if (currentRow == 2) 
+		//		{ 
+		//			if (ShoeStart != 0) { valueA = GetShoeVal(ShoeStart); destCellA.SetValue(valueA); } 
+		//			if(currentRow == FLoatPosStart) { valueA = GetFloatVal(FLoatPosStart); destCellA.SetValue(valueA); } 
+		//		}
+		//		if (currentRow == FLoatPosStart) 
+		//		{ 
+		//		 if (currentRow > 2) { valueA = GetFloatVal(FLoatPosStart);  destCellA.SetValue(valueA); }
+				 
+		//		}
+		//		if (currentRow > FLoatPosStart) { destCellA.SetValue(iValueA); }
+		//		if (ShoeStart == 0 && FLoatPosStart == 0) { destCellA.SetValue(iValueA); }
+				
 
+
+		//			return true;
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return false;
+		//	}
+
+		//}
 
 
 		// ---------------------------------------------------------------
-
-		public int ShoeStartingPoint(bool pShoeExist, bool pFloatExist, int pFLoatPos)
+		public bool GetShoeFloatConditions(bool pShoeExist, bool pFloatExist, int pFLoatPos, double pShoeLen, double floatLen)
 		{
+			try
+			{	
+				//SHOE = YES , FLOAT = YES
+				if (pShoeExist == true && pFloatExist==true) { ShoeStart = 4; FLoatPosStart = pFLoatPos; ShoeLen = pShoeLen; Floatlen = floatLen; }
+				
+
+				//SHOE = NO, FLOAT = YES
+				if (pShoeExist == false & pFloatExist == true) { ShoeStart = 0; FLoatPosStart = pFLoatPos; ShoeLen = 0; Floatlen = floatLen; }
+
+				//SHOE = YES, FLOAT = NO
+				if (pShoeExist == true && pFloatExist == false) { ShoeStart = 4; FLoatPosStart = 0; ShoeLen = pShoeLen; Floatlen = 0; }
+
+				//SHOE = NO , FLOAT = NO
+				if (pShoeExist == false && pFloatExist == false) { ShoeStart = 0; FLoatPosStart = 0; ShoeLen = 0; Floatlen = 0; }
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+
+		}
+
+			// ---------------------------------------------------------------
+
+			public int ShoeStartingPoint(bool pShoeExist, bool pFloatExist, int pFLoatPos)
+	     	{
 			int ret_val = 4;
 			FLoatPosStart = pFLoatPos;
 			if (pShoeExist == true) { ret_val = 4; ShoeStart = ret_val; }
@@ -482,22 +555,28 @@ namespace Russ_Tool
 				ShoeStart = 0;
 				if (pFloatExist == true)
 				{
-					ShoeStart = pFLoatPos;
-					return pFLoatPos;
+					//ShoeStart = pFLoatPos;
+					return ShoeStart;
 
 
 				}
-				else { ShoeStart = ret_val;  return ret_val;  }
+				else { ret_val = 0;  return ret_val;  }
 			}
 			
 			return ret_val;
-		}
+		    }
 
 		//--------------//--------------//--------------//--------------//--------------//--------------
 		public string GetShoeVal(int ShoeStart)
 		{
 			if (ShoeStart == 0) { return ""; }
 			return "Shoe";
+		}
+
+		public string GetFloatVal(int FloatStart)
+		{
+			if (FloatStart == 0) { return ""; }
+			return "Float";
 		}
 		//--------------//--------------//--------------//--------------//--------------
 

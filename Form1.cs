@@ -13,8 +13,8 @@ namespace Russ_Tool
 		public string pNumJoints = "";
 		public string pRawDataPath = "";
 		public string pShoeType = "";
-		public string pShoeLen = "";
-		public string pFloatLen = "";
+		public double pShoeLen = 0;
+		public double pFloatLen = 0;
 		public int pFloatPos = 0;
 		public string pFilename = "";
 		public string pFileDest = "";
@@ -87,7 +87,7 @@ namespace Russ_Tool
 			classInit.cData.dRunOperator2 = pRO2;
 			classInit.cData.dNumberOfJoints = pNumJoints;
 			classInit.cData.dShoeType = pShoeType;
-			classInit.cData.dShoeLength = pShoeType;
+			classInit.cData.dShoeLength = pShoeLen;
 			classInit.cData.dFloatLength = pFloatLen;
 			classInit.cData.dFloatPosition = pFloatPos;
 		}
@@ -103,8 +103,8 @@ namespace Russ_Tool
 			pNumJoints = txtNumJoint.Text;
 			pRawDataPath = txtRawData.Text;
 			pShoeType = txtShoeType.Text;
-			pShoeLen = txtShoeLen.Text;
-			pFloatLen = txtFloatLen.Text;
+			pShoeLen = classInit.cxlReader.ConvertStringToDouble(txtShoeLen.Text);
+			pFloatLen = classInit.cxlReader.ConvertStringToDouble(txtFloatLen.Text);
 			if (string.IsNullOrEmpty(txtFloatPos.Text) ==false) { pFloatPos = int.Parse(txtFloatPos.Text); }	
 			else { pFloatPos = 0; }
 			pFilename = txtFileName.Text;
@@ -169,7 +169,8 @@ namespace Russ_Tool
 				}
 				if (SelectedReport == 1)
 				{
-					classInit.cxlReader.ShoeStartingPoint(shoeExist, floatExist, pFloatPos);
+					classInit.cxlReader.GetShoeFloatConditions(shoeExist, floatExist, pFloatPos,pShoeLen,pFloatLen);
+					//classInit.cxlReader.ShoeStartingPoint(shoeExist, floatExist, pFloatPos);
 					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
 				}
 
