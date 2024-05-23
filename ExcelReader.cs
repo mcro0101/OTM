@@ -403,62 +403,78 @@ namespace Russ_Tool
 						{
 							int CTrow = rawrow + 2;
 							var sourceCellB = wsRawDataSheet2.Cell(rawrow, "B");
-							var sourceCellC = wsRawDataSheet2.Cell(rawrow, "C");
-							var destCellB = wsCT.Cell(CTrow, "B");
+							IXLCell destCellB = null;
 							var destCellA = wsCT.Cell(CTrow, "A");
 							IXLCell destRowNumCounter = null;
 							IXLCell destShoeA = null;
 							IXLCell destFloatA = null;
-							// Convert meters to feet
-							double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
-							int iValueA = rawrow-1; // Declare and initialize the variable
-							//string valueA = iValueA.ToString();
+							IXLCell destShoeB= null;
+							IXLCell destFloatB = null;
+							//IXLCell sourceCellB = null;
 
-							if (rawrow == 3)
-							{
-								destCellB = wsCT.Cell(rawrow + 3, "B");
-							}
+
+
+							// Convert meters to feet
+							double? valueBInFeet =0;
+							int iValueA = rawrow-1; // Declare and initialize the variable
+													//string valueA = iValueA.ToString();
 
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = YES , FLOAT = YES~~~~~~~~~~~~~~~~~//
 							if (ShoeStart !=0 && FLoatPosStart != 0)
 							{
-								if (rawrow==2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); }
+								if (rawrow==2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); destShoeB = wsCT.Cell(ShoeStart, "B"); destShoeB.SetValue(ShoeLen); }
 								if (iValueA == FLoatPosStart + 1) { stopper = true; }
-								if (stopper == false) { destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA); }
-								if (FLoatPosStart != 0 && iValueA == (ShoeStart + FLoatPosStart)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue("Float"); }
-								if (stopper == true) { destRowNumCounter = wsCT.Cell(ShoeStart + iValueA + 1, "A"); destRowNumCounter.SetValue(iValueA); }
-							}					
+								if (stopper == false)
+								{ 
+									destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA); // Col A Data
+									destCellB = wsCT.Cell(ShoeStart + iValueA, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
+								}
 
+								if (FLoatPosStart != 0 && iValueA == (ShoeStart + FLoatPosStart)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue("Float"); destFloatB = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "B"); destFloatB.SetValue(Floatlen); }
+								if (stopper == true) 
+								{
+									destRowNumCounter = wsCT.Cell(ShoeStart + iValueA + 1, "A"); destRowNumCounter.SetValue(iValueA);
+									destCellB = wsCT.Cell(ShoeStart + iValueA + 1, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
+																																															
+								}
+							}
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = NO , FLOAT = NO~~~~~~~~~~~~~~~~~//
 
-							if (ShoeStart == 0 && FLoatPosStart==0) { destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA); }
+							if (ShoeStart == 0 && FLoatPosStart==0)
+							{ 
+								destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA);  // Col A Data
+								destCellB = wsCT.Cell(CTrow, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
+							}
 
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = YES , FLOAT = NO~~~~~~~~~~~~~~~~~//
 							if (ShoeStart != 0 && FLoatPosStart == 0) 
 							{
-								if (rawrow == 2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); }
-								destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA);
+								if (rawrow == 2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); destShoeB = wsCT.Cell(ShoeStart, "B"); destShoeB.SetValue(ShoeLen); }
+								destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA);// Col A Data
+								destCellB = wsCT.Cell(ShoeStart + iValueA, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data;
 							}
 
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = NO , FLOAT = YES~~~~~~~~~~~~~~~~~//
 							if (ShoeStart == 0 && FLoatPosStart != 0)
 							{
 								if (iValueA == FLoatPosStart + 1) { stopper = true; }
-								if (stopper == false) { destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA); }
-								if (FLoatPosStart != 0 && iValueA == (FLoatPosStart + 1)) { destFloatA = wsCT.Cell(CTrow, "A"); destFloatA.SetValue("Float"); }
-								if (stopper == true) { destRowNumCounter = wsCT.Cell(CTrow + 1, "A"); destRowNumCounter.SetValue(iValueA); }
+								if (stopper == false)
+								{ 
+									destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA); // Col A Data
+									destCellB = wsCT.Cell(CTrow, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
+								}
+								if (FLoatPosStart != 0 && iValueA == (FLoatPosStart + 1)) { destFloatA = wsCT.Cell(CTrow, "A"); destFloatA.SetValue("Float"); destFloatB = wsCT.Cell(CTrow, "B"); destFloatB.SetValue(Floatlen); }
+								if (stopper == true)
+								{ 
+									destRowNumCounter = wsCT.Cell(CTrow + 1, "A"); destRowNumCounter.SetValue(iValueA);  // Col A Data
+									destCellB = wsCT.Cell(CTrow + 1, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
+								}
 							}
-
-								if (valueBInFeet.HasValue)
-							{
-								//destCellB.SetValue(valueBInFeet.Value);
-								//InsertDataToColmnA(destCellA, pLastRow, rawrow);
-
-
-							}
-
-		
 						}
+
+
+
+					
 						catch (Exception ex)
 						{
 							MessageBox.Show($"Error processing row {rawrow}: {ex.Message}", "Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

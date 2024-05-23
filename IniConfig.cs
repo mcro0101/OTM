@@ -17,7 +17,7 @@ namespace Russ_Tool
 		private string configFileName = "Config.ini";
 		public string iDate = "";
 		public string iCasingDetails = "";
-		public string iWellInformatio = "";
+		public string iWellInformation = "";
 		public string iRunOperator1 = "";
 		public string iRunOperator2 = "";
 		public string iNumberOfJoints = "";
@@ -67,7 +67,7 @@ namespace Russ_Tool
 				var DefVal = cfg["DefaultValue"];
 				iDate = DefVal["Date"].StringValue;
 				iCasingDetails = DefVal["CasingDetails"].StringValue;
-				iWellInformatio = DefVal["WellInformatio"].StringValue;
+				iWellInformation = DefVal["WellInformatio"].StringValue;
 				iRunOperator1 = DefVal["RunOperator1"].StringValue;
 				iRunOperator2 = DefVal["RunOperator2"].StringValue;
 				iNumberOfJoints = DefVal["NumberOfJoints"].StringValue;

@@ -42,6 +42,7 @@
 			label4 = new Label();
 			label5 = new Label();
 			groupBox1 = new GroupBox();
+			dtpDate = new DateTimePicker();
 			label12 = new Label();
 			txtNumJoint = new TextBox();
 			label11 = new Label();
@@ -129,10 +130,11 @@
 			// 
 			// txtDate
 			// 
-			txtDate.Location = new Point(144, 31);
+			txtDate.Location = new Point(398, 291);
 			txtDate.Name = "txtDate";
 			txtDate.Size = new Size(180, 23);
 			txtDate.TabIndex = 8;
+			txtDate.Visible = false;
 			// 
 			// txtCD
 			// 
@@ -191,12 +193,12 @@
 			// 
 			// groupBox1
 			// 
+			groupBox1.Controls.Add(dtpDate);
 			groupBox1.Controls.Add(label12);
 			groupBox1.Controls.Add(label5);
 			groupBox1.Controls.Add(txtNumJoint);
 			groupBox1.Controls.Add(label1);
 			groupBox1.Controls.Add(label11);
-			groupBox1.Controls.Add(txtDate);
 			groupBox1.Controls.Add(txtCD);
 			groupBox1.Controls.Add(txtWI);
 			groupBox1.Controls.Add(txtRO1);
@@ -210,6 +212,16 @@
 			groupBox1.TabIndex = 21;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Job Details";
+			// 
+			// dtpDate
+			// 
+			dtpDate.CustomFormat = "MM-dd-yyyy";
+			dtpDate.Format = DateTimePickerFormat.Custom;
+			dtpDate.Location = new Point(144, 28);
+			dtpDate.Margin = new Padding(10, 3, 3, 3);
+			dtpDate.Name = "dtpDate";
+			dtpDate.Size = new Size(180, 23);
+			dtpDate.TabIndex = 33;
 			// 
 			// label12
 			// 
@@ -555,6 +567,7 @@
 			Controls.Add(groupBox4);
 			Controls.Add(button1);
 			Controls.Add(groupBox2);
+			Controls.Add(txtDate);
 			Controls.Add(groupBox1);
 			Controls.Add(btnGenerate);
 			Icon = (Icon)resources.GetObject("$this.Icon");
@@ -573,6 +586,7 @@
 			groupBox4.ResumeLayout(false);
 			groupBox4.PerformLayout();
 			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
@@ -622,5 +636,6 @@
 		private TextBox txtFloatLen;
 		private GroupBox groupBox5;
 		private GroupBox groupBox6;
+		private DateTimePicker dtpDate;
 	}
 }

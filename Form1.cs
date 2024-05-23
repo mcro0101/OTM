@@ -31,9 +31,11 @@ namespace Russ_Tool
 
 		public void InitializeControls()
 		{
-			txtDate.Text = classInit.cIniConfig.iDate;
+			dtpDate.Format = DateTimePickerFormat.Custom;
+			dtpDate.CustomFormat = "MM-dd-yyyy";
+			//txtDate.Text = classInit.cIniConfig.iDate;
 			txtCD.Text = classInit.cIniConfig.iCasingDetails;
-			txtWI.Text = classInit.cIniConfig.iWellInformatio;
+			txtWI.Text = classInit.cIniConfig.iWellInformation;
 			txtRO1.Text = classInit.cIniConfig.iRunOperator1;
 			txtRO2.Text = classInit.cIniConfig.iRunOperator2;
 			txtNumJoint.Text = classInit.cIniConfig.iNumberOfJoints;
@@ -94,8 +96,9 @@ namespace Russ_Tool
 		public void InitiliazeConst()
 		{
 		
-			//classInit.cData.dCasingTallyNSNF = "C:\\TEMP\\Templates\\OTM Casing Tally Template 400 Joint NO SHOE NO FLOAT Version.xltx";
-			pDate = txtDate.Text;
+			
+			//pDate = txtDate.Text;
+			pDate = dtpDate.Text;
 			pCD = txtCD.Text;
 			pWI = txtWI.Text;
 			pRO1 = txtRO1.Text;
