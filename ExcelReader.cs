@@ -410,12 +410,16 @@ namespace Russ_Tool
 							IXLCell destFloatA = null;
 							IXLCell destShoeB= null;
 							IXLCell destFloatB = null;
+							IXLCell destFloatC4 = null;
+							IXLCell destFloatC = null;
 							//IXLCell sourceCellB = null;
 
 
 
 							// Convert meters to feet
-							double? valueBInFeet =0;
+							double? valueBInFeet = 0;
+						    string valueInC4 = "";
+							string valueInC= "";
 							int iValueA = rawrow-1; // Declare and initialize the variable
 													//string valueA = iValueA.ToString();
 
@@ -470,6 +474,23 @@ namespace Russ_Tool
 									destCellB = wsCT.Cell(CTrow + 1, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
 								}
 							}
+							if (CTrow == 4)
+							{
+								valueInC4 = wsCT.Cell("B4").Value.ToString();
+								destFloatC4 = wsCT.Cell("C4");
+								destFloatC4.SetValue(ConvertStringToDouble(valueInC4));
+								wsCT.Cell(4, 5).FormulaA1 = "=F4-B4";
+							}
+							//if (CTrow!=4 )
+							//{
+							//	valueInC = wsCT.Cell($"B{CTrow}").Value.ToString();
+							//	destFloatC = wsCT.Cell($"C{CTrow}");
+							//	string CUpValue = wsCT.Cell($"C{CTrow - 1}").Value.ToString();
+							//	destFloatC.SetValue(ConvertStringToDouble(valueInC) + ConvertStringToDouble(CUpValue));
+							//}
+
+						
+
 						}
 
 
@@ -481,6 +502,20 @@ namespace Russ_Tool
 						}
 					}
 
+					int pLastRow2 = wsCT.LastRowUsed().RowNumber();
+					for (int CstartRow = 5; CstartRow <= pLastRow + 4; CstartRow++)
+					{
+						// Set the formula in column C for each row
+						wsCT.Cell(CstartRow, 3).FormulaA1 = $"=SUM(B{CstartRow},C{CstartRow - 1})";
+						wsCT.Cell(CstartRow, 5).FormulaA1 = $"=F{CstartRow}-B{CstartRow}";
+						wsCT.Cell(CstartRow, 6).FormulaA1 = $"=E{CstartRow-1}";		
+					}
+
+					wsCT.Cell("F4").FormulaA1 = $"=SUM(B4:B{(pLastRow2 + 4).ToString()})";
+					//wsCT.Cell("C4").FormulaA1 = $"=B4";
+					//wsCT.Cell("C5").FormulaA1 = $"=SUM(B5+C4)";
+
+					//wsCT.Rows(pLastRow + 5,1000).Delete();
 					try
 					{
 						wbDblChk.Save();
