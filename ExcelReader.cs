@@ -292,16 +292,18 @@ namespace Russ_Tool
 						{
 							var sourceCellB = wsRawDataSheet2.Cell(row, "B");
 							var sourceCellC = wsRawDataSheet2.Cell(row, "C");
+							var destCellA = wsDblchk.Cell(row + 2, "A");
 							var destCellB = wsDblchk.Cell(row + 2, "B");
 							var destCellE = wsDblchk.Cell(row + 2, "E");
-
+							var destCellH = wsDblchk.Cell(row + 2, "H");
+							int iValueA = row - 1;
 							// Convert meters to feet
 							//double? valueBInFeet = ConvertMetersToFeet(sourceCellB.GetString());
 							//double? valueCInFeet = ConvertMetersToFeet(sourceCellC.GetString());
 
 							double? valueBInFeet = ConvertStringToDouble(sourceCellB.GetString());
 							double? valueCInFeet = ConvertStringToDouble(sourceCellC.GetString());
-
+							destCellA.SetValue(iValueA);
 							// Copy converted data if conversion is successful
 							if (valueBInFeet.HasValue)
 							{
@@ -321,6 +323,11 @@ namespace Russ_Tool
 								destCellE.Clear(); // Clear cell if conversion fails
 							}
 
+							//Add H values
+							wsDblchk.Cell(row + 2, 8).FormulaA1 = $"=ABS(B{row + 2}-E{row + 2})";
+							wsDblchk.Cell(row + 2,9).FormulaA1 = "=IF(H4 < 0.02, \"Good\", \"Bad\")";
+
+							
 							// Merge cells
 							wsDblchk.Range(destCellB, destCellB.CellRight(2)).Merge();
 							wsDblchk.Range(destCellE, destCellE.CellRight(2)).Merge();
