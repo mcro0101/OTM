@@ -517,15 +517,21 @@ namespace Russ_Tool
 								destFloatC4.SetValue(ConvertStringToDouble(valueInC4));
 								wsCT.Cell(4, 5).FormulaA1 = "=F4-B4";
 							}
-							//if (CTrow!=4 )
-							//{
-							//	valueInC = wsCT.Cell($"B{CTrow}").Value.ToString();
-							//	destFloatC = wsCT.Cell($"C{CTrow}");
-							//	string CUpValue = wsCT.Cell($"C{CTrow - 1}").Value.ToString();
-							//	destFloatC.SetValue(ConvertStringToDouble(valueInC) + ConvertStringToDouble(CUpValue));
-							//}
 
-						
+							if (rawrow == pLastRow)
+							{
+								// Insert totals row after the last used row
+								int totalRow = pLastRow + 4;
+								var dTotalA = wsCT.Cell(totalRow + 1, "A");
+								dTotalA.SetValue("Total:");
+								wsCT.Cell(totalRow + 1, 2).FormulaA1 = $"=SUM(B4:B{totalRow})";
+								wsCT.Cell("F4").FormulaA1 = $"=SUM(B4:B{totalRow})";
+								var range = wsCT.Range($"A{totalRow + 1}:C{totalRow +1}");
+								range.Style.Fill.BackgroundColor = XLColor.Yellow;
+								var currentRowRange = wsCT.Range($"A{rawrow + 2}:F{rawrow + 2}");
+								currentRowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+								currentRowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+							}
 
 						}
 
@@ -547,13 +553,15 @@ namespace Russ_Tool
 						wsCT.Cell(CstartRow, 6).FormulaA1 = $"=E{CstartRow-1}";		
 					}
 
-					wsCT.Cell("F4").FormulaA1 = $"=SUM(B4:B{(pLastRow2 + 4).ToString()})";
-					//wsCT.Cell("C4").FormulaA1 = $"=B4";
-					//wsCT.Cell("C5").FormulaA1 = $"=SUM(B5+C4)";
+					int totalRows = wsCT.LastRowUsed().RowNumber();
+					if (totalRows > pLastRow + 4)
+					{
+						wsCT.Rows(pLastRow2 + 1, totalRows + 1000).Delete();				
+					}
 
-					//wsCT.Rows(pLastRow + 5,1000).Delete();
 					try
 					{
+					
 						wbDblChk.Save();
 						// Display success message
 						string pathDir = Path.GetDirectoryName(pfilePath);

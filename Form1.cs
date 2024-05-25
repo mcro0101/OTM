@@ -38,7 +38,7 @@ namespace Russ_Tool
 			txtWI.Text = classInit.cIniConfig.iWellInformation;
 			txtRO1.Text = classInit.cIniConfig.iRunOperator1;
 			txtRO2.Text = classInit.cIniConfig.iRunOperator2;
-			txtNumJoint.Text = classInit.cIniConfig.iNumberOfJoints;
+			//txtNumJoint.Text = classInit.cIniConfig.iNumberOfJoints;
 			txtShoeType.Text = classInit.cIniConfig.iShoeType;
 			txtShoeLen.Text = classInit.cIniConfig.iShoeLength;
 			txtFloatLen.Text = classInit.cIniConfig.iFloatLength;
@@ -47,7 +47,8 @@ namespace Russ_Tool
 			classInit.cData.dDoubleChecke = classInit.cIniConfig.iDoubleCheckTemplatePath;
 			classInit.cData.dCasingTallySF = classInit.cIniConfig.iCasingTallyTemplatePath;
 			//txtFileName.Text = classInit.cIniConfig.iFileName;
-			txtRawData.Text = classInit.cIniConfig.iRawFile;
+			//txtRawData.Text = classInit.cIniConfig.iRawFile;
+			txtRawData.Text = "";
 			txtFilePathDest.Text = classInit.cIniConfig.iFileDestination;
 			rdoDblChk.Checked = true;
 			//rdoFloatNo.Checked = true;
@@ -159,7 +160,8 @@ namespace Russ_Tool
 			StoreData();
 			string pPath = pFileDest;
 			string valReport = GetSelectedReport();
-		
+		    if (string.IsNullOrEmpty(pNumJoints) || int.Parse(pNumJoints) == 0) { MessageBox.Show("Invalid Number of Joints", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+			if (pFloatPos == 0) { MessageBox.Show("Invalid Float Position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 			if (pPath != "")
 			{
 				//classInit.cxlReader.ReadDataFromExcel(pPath, "Sheet1");
@@ -201,6 +203,38 @@ namespace Russ_Tool
 				e.Handled = true;
 			}
 		}
+
+
+		private void OnlyAllowNumeric(object sender, KeyPressEventArgs e)
+		{
+			// Allow control characters (backspace, delete, etc.)
+			if (char.IsControl(e.KeyChar))
+			{
+				return;
+			}
+
+			// Allow digits only
+			if (!char.IsDigit(e.KeyChar))
+			{
+				e.Handled = true;
+				return;
+			}
+
+			// Get the current text in the TextBox
+			string currentText = (sender as TextBox).Text;
+
+			// Calculate the new value if the key is pressed
+			string newText = currentText + e.KeyChar;
+
+			// Check if the new value exceeds 1 million
+			if (int.TryParse(newText, out int result) && result > 1000000)
+			{
+				e.Handled = true;
+				MessageBox.Show("Number is too large","Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+
 		public static void PreventSpecialCharacters(object sender, KeyPressEventArgs e)
 		{
 			// Check if the pressed key is a control key or a valid character
@@ -278,7 +312,7 @@ private static bool IsAllowedSpecialCharacter(char c)
 		}
 		private void txtNumJoint_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			OnlyAllowNumericAndDecimal(sender, e);
+			OnlyAllowNumeric(sender, e);
 		}
 
 		private void txtShoeLen_KeyPress(object sender, KeyPressEventArgs e)
@@ -293,7 +327,7 @@ private static bool IsAllowedSpecialCharacter(char c)
 
 		private void txtFloatPos_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			OnlyAllowNumericAndDecimal(sender, e);
+			OnlyAllowNumeric(sender, e);
 		}
 
 		private void txtRawData_TextChanged(object sender, EventArgs e)
