@@ -323,6 +323,26 @@ namespace Russ_Tool
 								destCellE.Clear(); // Clear cell if conversion fails
 							}
 
+							//Last Row Height
+							if (row == pLastRow) 
+							{
+								int ResultRow = pLastRow + 3;
+								destCellA = wsDblchk.Cell(ResultRow, "A");
+								destCellB = wsDblchk.Cell(ResultRow, "B");
+								var destCellI = wsDblchk.Cell(ResultRow, "I");
+								destCellA.SetValue("TOTALS");
+								wsDblchk.Cell(ResultRow, 2).FormulaA1 = $"=SUM(B4:B{row+2})";
+								wsDblchk.Cell(ResultRow, 5).FormulaA1 = $"=SUM(E4:E{row+2})";
+								wsDblchk.Cell(ResultRow, 8).FormulaA1 = $"=SUM(B{ResultRow}-E{ResultRow})";
+								destCellI.SetValue("ALL GOOD?");
+
+								var currentRowRange = wsDblchk.Range($"A{row + 2}:I{row + 2}");
+								currentRowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+								currentRowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+							}
+
+
 							//Add H values
 							wsDblchk.Cell(row + 2, 8).FormulaA1 = $"=ABS(B{row + 2}-E{row + 2})";
 							wsDblchk.Cell(row + 2,9).FormulaA1 = "=IF(H4 < 0.02, \"Good\", \"Bad\")";
@@ -331,15 +351,24 @@ namespace Russ_Tool
 							// Merge cells
 							wsDblchk.Range(destCellB, destCellB.CellRight(2)).Merge();
 							wsDblchk.Range(destCellE, destCellE.CellRight(2)).Merge();
+
+							var range = wsDblchk.Range($"A{pLastRow + 3}:I{pLastRow + 3}");
+							range.Style.Fill.BackgroundColor = XLColor.Yellow;
 						}
 						catch (Exception ex)
 						{
 							MessageBox.Show($"Error processing row {row}: {ex.Message}", "Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						}
 					}
-
+					// Delete rows below pLastRow
+					int totalRows = wsDblchk.LastRowUsed().RowNumber();
+					if (totalRows > pLastRow + 3)
+					{
+						wsDblchk.Rows(pLastRow + 4, totalRows).Delete();
+					}
 					try
 					{
+					
 						wbDblChk.Save();
 						// Display success message
 						string pathDir = Path.GetDirectoryName(pfilePath);
