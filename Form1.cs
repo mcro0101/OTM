@@ -1,4 +1,5 @@
 using DocumentFormat.OpenXml.Math;
+using System.Diagnostics;
 
 namespace Russ_Tool
 {
@@ -22,6 +23,7 @@ namespace Russ_Tool
 		public int SelectedReport = 0; //0 For Double Check, 1 for Casing Tally
 		public bool shoeExist = false;
 		public bool floatExist = false;
+		public int tempJointVal = 0;
 
 		public Form1()
 		{
@@ -147,6 +149,7 @@ namespace Russ_Tool
 
 			int RawMaxRows = classInit.cxlReader.GetMaxRowsInWorkbook(txtRawData.Text);
 			txtNumJoint.Text = RawMaxRows.ToString();
+			tempJointVal = RawMaxRows;
 		}
 
 		private void btnFilePath_Click(object sender, EventArgs e)
@@ -160,12 +163,17 @@ namespace Russ_Tool
 			StoreData();
 			string pPath = pFileDest;
 			string valReport = GetSelectedReport();
-		    if (string.IsNullOrEmpty(pNumJoints) || int.Parse(pNumJoints) == 0) { MessageBox.Show("Invalid Number of Joints", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-			if (pFloatPos == 0) { MessageBox.Show("Invalid Float Position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+			if (string.IsNullOrEmpty(pRawDataPath)) { MessageBox.Show("Raw data input file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+			
+
+			// Show loading screen
+
+
 			if (pPath != "")
 			{
 				//classInit.cxlReader.ReadDataFromExcel(pPath, "Sheet1");
 				string newFileDest = pFileDest + "\\" + pFilename + ".xlsx";
+				classInit.cFileManager.CheckAndDeleteFile(newFileDest);
 				classInit.cFileManager.CopyFile(valReport, newFileDest);
 				classInit.cxlReader.ReplaceTextInExcel(newFileDest, pFilename, classInit.cData.InsertDictionary());
 				if (SelectedReport == 0)
@@ -174,8 +182,11 @@ namespace Russ_Tool
 				}
 				if (SelectedReport == 1)
 				{
+					if (checkMaxRowsCorrect() == false) { MessageBox.Show($"The number of joints cannot exceed {tempJointVal}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; };
+					if (string.IsNullOrEmpty(pNumJoints) || int.Parse(pNumJoints) == 0) { MessageBox.Show("Invalid Number of Joints", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+					if (floatExist == true) { if (pFloatPos == 0) { MessageBox.Show("Invalid Float Position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; } }
+			
 					classInit.cxlReader.GetShoeFloatConditions(shoeExist, floatExist, pFloatPos,pShoeLen,pFloatLen);
-					//classInit.cxlReader.ShoeStartingPoint(shoeExist, floatExist, pFloatPos);
 					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
 				}
 
@@ -234,7 +245,11 @@ namespace Russ_Tool
 			}
 		}
 
-
+		private bool checkMaxRowsCorrect()
+		{
+			if(int.Parse(txtNumJoint.Text) <= tempJointVal) { return true; }
+			return false;
+		}
 		public static void PreventSpecialCharacters(object sender, KeyPressEventArgs e)
 		{
 			// Check if the pressed key is a control key or a valid character

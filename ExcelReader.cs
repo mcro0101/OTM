@@ -16,6 +16,7 @@ namespace Russ_Tool
 		private int FLoatPosStart = 0;
 		private double Floatlen = 0;
 		private double ShoeLen = 0;
+		
 		public List<List<string>> ReadDataFromExcel(string filePath, string sheetName)
 		{
 			List<List<string>> dataList = new List<List<string>>();
@@ -64,7 +65,7 @@ namespace Russ_Tool
 
 		public string BrowseExcelFile()
 		{
-			string selectedFilePath = null;
+			string selectedFilePath = "";
 
 			// Create OpenFileDialog
 			OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -419,8 +420,10 @@ namespace Russ_Tool
 		// ---------------------------------------------------------------
 
 
-		public void InsertDataToCasingTally(string pRawDataPath, string pCTPath, string pfilePath, string pfileName, int pLastRow)
+		public async void InsertDataToCasingTally(string pRawDataPath, string pCTPath, string pfilePath, string pfileName, int pLastRow)
 		{
+			
+		
 			try
 			{
 				using (var wbRawData = new XLWorkbook(pRawDataPath))
@@ -433,6 +436,7 @@ namespace Russ_Tool
 					//var lastRow = wsRawDataSheet2.LastRowUsed().RowNumber();
 					pLastRow = pLastRow + 1;
 					// Copy data row by row and merge cells per row
+					//pInit.cLoadingScreen.StartProgressBar(0);
 					for (int rawrow = 2; rawrow <= pLastRow; rawrow++)
 					{
 						try
@@ -558,7 +562,7 @@ namespace Russ_Tool
 					{
 						wsCT.Rows(pLastRow2 + 1, totalRows + 1000).Delete();				
 					}
-
+					//pInit.cLoadingScreen.StartProgressBar(100);
 					try
 					{
 					

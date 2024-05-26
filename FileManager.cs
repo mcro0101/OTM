@@ -175,5 +175,36 @@ namespace Russ_Tool
 		}
 
 
+
+		/// ---------------
+		/// 
+		public  void CheckAndDeleteFile(string filePath)
+		{
+			try
+			{
+				if (File.Exists(filePath))
+				{
+					File.Delete(filePath);
+				//	MessageBox.Show($"File deleted successfully: {filePath}", "File Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				else
+				{
+					return;
+				}
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				return;
+			}
+			catch (IOException ex)
+			{
+				return;
+			}
+			catch (Exception ex)
+			{
+				return;
+			}
+		}
+
 	}
 }

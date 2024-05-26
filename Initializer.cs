@@ -17,12 +17,14 @@ namespace Russ_Tool
 		public FileManager cFileManager { get; set; }
 		public IniConfig cIniConfig { get; set; }
 
+		//public frmloadingscreen cLoadingScreen { get; set; }
 		public Initializer()
 		{
 			cData = new DataStorage();
 			cxlReader = new ExcelReader();
 			cFileManager = new FileManager();
 			cIniConfig = new IniConfig();
+		//	cLoadingScreen = new frmloadingscreen();
 
 		}
 	}
