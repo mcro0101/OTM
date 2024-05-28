@@ -87,7 +87,7 @@
 			// label1
 			// 
 			label1.AutoSize = true;
-			label1.Location = new Point(19, 92);
+			label1.Location = new Point(19, 83);
 			label1.Name = "label1";
 			label1.Size = new Size(99, 15);
 			label1.TabIndex = 1;
@@ -96,7 +96,7 @@
 			// btnGenerate
 			// 
 			btnGenerate.Font = new Font("Segoe UI", 13F);
-			btnGenerate.Location = new Point(428, 628);
+			btnGenerate.Location = new Point(435, 605);
 			btnGenerate.Name = "btnGenerate";
 			btnGenerate.Size = new Size(117, 95);
 			btnGenerate.TabIndex = 5;
@@ -138,28 +138,28 @@
 			// 
 			// txtCD
 			// 
-			txtCD.Location = new Point(144, 60);
+			txtCD.Location = new Point(144, 51);
 			txtCD.Name = "txtCD";
 			txtCD.Size = new Size(180, 23);
 			txtCD.TabIndex = 9;
 			// 
 			// txtWI
 			// 
-			txtWI.Location = new Point(144, 89);
+			txtWI.Location = new Point(144, 80);
 			txtWI.Name = "txtWI";
 			txtWI.Size = new Size(180, 23);
 			txtWI.TabIndex = 10;
 			// 
 			// txtRO1
 			// 
-			txtRO1.Location = new Point(144, 118);
+			txtRO1.Location = new Point(144, 109);
 			txtRO1.Name = "txtRO1";
 			txtRO1.Size = new Size(180, 23);
 			txtRO1.TabIndex = 11;
 			// 
 			// txtRO2
 			// 
-			txtRO2.Location = new Point(144, 147);
+			txtRO2.Location = new Point(144, 138);
 			txtRO2.Name = "txtRO2";
 			txtRO2.Size = new Size(180, 23);
 			txtRO2.TabIndex = 12;
@@ -167,7 +167,7 @@
 			// label3
 			// 
 			label3.AutoSize = true;
-			label3.Location = new Point(19, 121);
+			label3.Location = new Point(19, 112);
 			label3.Name = "label3";
 			label3.Size = new Size(97, 15);
 			label3.TabIndex = 13;
@@ -176,7 +176,7 @@
 			// label4
 			// 
 			label4.AutoSize = true;
-			label4.Location = new Point(19, 63);
+			label4.Location = new Point(19, 54);
 			label4.Name = "label4";
 			label4.Size = new Size(84, 15);
 			label4.TabIndex = 14;
@@ -185,7 +185,7 @@
 			// label5
 			// 
 			label5.AutoSize = true;
-			label5.Location = new Point(19, 34);
+			label5.Location = new Point(19, 25);
 			label5.Name = "label5";
 			label5.Size = new Size(34, 15);
 			label5.TabIndex = 15;
@@ -208,7 +208,7 @@
 			groupBox1.ForeColor = SystemColors.ActiveCaptionText;
 			groupBox1.Location = new Point(12, 4);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(378, 225);
+			groupBox1.Size = new Size(378, 203);
 			groupBox1.TabIndex = 21;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Job Details";
@@ -217,7 +217,7 @@
 			// 
 			dtpDate.CustomFormat = "MM-dd-yyyy";
 			dtpDate.Format = DateTimePickerFormat.Custom;
-			dtpDate.Location = new Point(144, 28);
+			dtpDate.Location = new Point(144, 19);
 			dtpDate.Margin = new Padding(10, 3, 3, 3);
 			dtpDate.Name = "dtpDate";
 			dtpDate.Size = new Size(180, 23);
@@ -226,7 +226,7 @@
 			// label12
 			// 
 			label12.AutoSize = true;
-			label12.Location = new Point(19, 179);
+			label12.Location = new Point(19, 170);
 			label12.Name = "label12";
 			label12.Size = new Size(98, 15);
 			label12.TabIndex = 24;
@@ -234,7 +234,7 @@
 			// 
 			// txtNumJoint
 			// 
-			txtNumJoint.Location = new Point(144, 176);
+			txtNumJoint.Location = new Point(144, 167);
 			txtNumJoint.Name = "txtNumJoint";
 			txtNumJoint.Size = new Size(39, 23);
 			txtNumJoint.TabIndex = 23;
@@ -243,7 +243,7 @@
 			// label11
 			// 
 			label11.AutoSize = true;
-			label11.Location = new Point(19, 150);
+			label11.Location = new Point(19, 141);
 			label11.Name = "label11";
 			label11.Size = new Size(97, 15);
 			label11.TabIndex = 22;
@@ -254,9 +254,9 @@
 			groupBox2.Controls.Add(groupBox6);
 			groupBox2.Controls.Add(groupBox5);
 			groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-			groupBox2.Location = new Point(13, 291);
+			groupBox2.Location = new Point(13, 263);
 			groupBox2.Name = "groupBox2";
-			groupBox2.Size = new Size(378, 313);
+			groupBox2.Size = new Size(378, 307);
 			groupBox2.TabIndex = 22;
 			groupBox2.TabStop = false;
 			groupBox2.Text = "Float Equipment";
@@ -273,7 +273,7 @@
 			groupBox6.Controls.Add(label13);
 			groupBox6.Controls.Add(rdoFloatNo);
 			groupBox6.Controls.Add(rdoFloatYes);
-			groupBox6.Location = new Point(5, 140);
+			groupBox6.Location = new Point(6, 133);
 			groupBox6.Name = "groupBox6";
 			groupBox6.Size = new Size(365, 167);
 			groupBox6.TabIndex = 34;
@@ -291,7 +291,7 @@
 			// label17
 			// 
 			label17.AutoSize = true;
-			label17.Location = new Point(14, 19);
+			label17.Location = new Point(12, 19);
 			label17.Name = "label17";
 			label17.Size = new Size(36, 15);
 			label17.TabIndex = 13;
@@ -308,7 +308,7 @@
 			// label16
 			// 
 			label16.AutoSize = true;
-			label16.Location = new Point(14, 77);
+			label16.Location = new Point(12, 77);
 			label16.Name = "label16";
 			label16.Size = new Size(63, 15);
 			label16.TabIndex = 22;
@@ -324,7 +324,7 @@
 			// label19
 			// 
 			label19.AutoSize = true;
-			label19.Location = new Point(1, 124);
+			label19.Location = new Point(1, 134);
 			label19.Name = "label19";
 			label19.Size = new Size(119, 15);
 			label19.TabIndex = 27;
@@ -332,7 +332,7 @@
 			// 
 			// txtFloatPos
 			// 
-			txtFloatPos.Location = new Point(138, 108);
+			txtFloatPos.Location = new Point(138, 118);
 			txtFloatPos.Name = "txtFloatPos";
 			txtFloatPos.Size = new Size(180, 23);
 			txtFloatPos.TabIndex = 23;
@@ -341,7 +341,7 @@
 			// label13
 			// 
 			label13.AutoSize = true;
-			label13.Location = new Point(12, 106);
+			label13.Location = new Point(12, 116);
 			label13.Name = "label13";
 			label13.Size = new Size(82, 15);
 			label13.TabIndex = 24;
@@ -380,7 +380,7 @@
 			groupBox5.Controls.Add(label18);
 			groupBox5.Controls.Add(rdoShoeYes);
 			groupBox5.Controls.Add(rdoShoeNo);
-			groupBox5.Location = new Point(5, 22);
+			groupBox5.Location = new Point(5, 15);
 			groupBox5.Name = "groupBox5";
 			groupBox5.Size = new Size(365, 119);
 			groupBox5.TabIndex = 33;
@@ -467,7 +467,7 @@
 			// 
 			// txtFilePathDest
 			// 
-			txtFilePathDest.Location = new Point(21, 90);
+			txtFilePathDest.Location = new Point(21, 101);
 			txtFilePathDest.Name = "txtFilePathDest";
 			txtFilePathDest.ReadOnly = true;
 			txtFilePathDest.Size = new Size(280, 23);
@@ -475,7 +475,7 @@
 			// 
 			// txtFileName
 			// 
-			txtFileName.Location = new Point(73, 43);
+			txtFileName.Location = new Point(73, 52);
 			txtFileName.Name = "txtFileName";
 			txtFileName.Size = new Size(228, 23);
 			txtFileName.TabIndex = 24;
@@ -484,7 +484,7 @@
 			// label2
 			// 
 			label2.AutoSize = true;
-			label2.Location = new Point(6, 69);
+			label2.Location = new Point(6, 80);
 			label2.Name = "label2";
 			label2.Size = new Size(167, 15);
 			label2.TabIndex = 26;
@@ -493,7 +493,7 @@
 			// label6
 			// 
 			label6.AutoSize = true;
-			label6.Location = new Point(6, 46);
+			label6.Location = new Point(6, 55);
 			label6.Name = "label6";
 			label6.Size = new Size(63, 15);
 			label6.TabIndex = 27;
@@ -509,16 +509,16 @@
 			groupBox3.Controls.Add(txtFileName);
 			groupBox3.Controls.Add(txtFilePathDest);
 			groupBox3.ForeColor = SystemColors.ActiveCaptionText;
-			groupBox3.Location = new Point(12, 610);
+			groupBox3.Location = new Point(12, 569);
 			groupBox3.Name = "groupBox3";
-			groupBox3.Size = new Size(377, 121);
+			groupBox3.Size = new Size(377, 132);
 			groupBox3.TabIndex = 28;
 			groupBox3.TabStop = false;
 			groupBox3.Text = "Save File";
 			// 
 			// btnFilePathDest
 			// 
-			btnFilePathDest.Location = new Point(297, 90);
+			btnFilePathDest.Location = new Point(297, 101);
 			btnFilePathDest.Name = "btnFilePathDest";
 			btnFilePathDest.Size = new Size(75, 23);
 			btnFilePathDest.TabIndex = 28;
@@ -550,7 +550,7 @@
 			// 
 			groupBox4.Controls.Add(txtRawData);
 			groupBox4.Controls.Add(btnImportRaw);
-			groupBox4.Location = new Point(12, 232);
+			groupBox4.Location = new Point(12, 207);
 			groupBox4.Name = "groupBox4";
 			groupBox4.Size = new Size(378, 56);
 			groupBox4.TabIndex = 32;
@@ -562,7 +562,7 @@
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(243, 243, 243);
-			ClientSize = new Size(575, 743);
+			ClientSize = new Size(575, 707);
 			Controls.Add(groupBox3);
 			Controls.Add(groupBox4);
 			Controls.Add(button1);
@@ -570,7 +570,9 @@
 			Controls.Add(txtDate);
 			Controls.Add(groupBox1);
 			Controls.Add(btnGenerate);
+			FormBorderStyle = FormBorderStyle.FixedSingle;
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			MaximizeBox = false;
 			Name = "Form1";
 			Text = "OTM Report Generator";
 			Load += Form1_Load;

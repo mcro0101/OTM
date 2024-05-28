@@ -1,4 +1,5 @@
 using DocumentFormat.OpenXml.Math;
+using Report_Generator;
 using System.Diagnostics;
 
 namespace Russ_Tool
@@ -145,11 +146,13 @@ namespace Russ_Tool
 
 		private void btnRawData_Click(object sender, EventArgs e)
 		{
+		
 			txtRawData.Text = classInit.cxlReader.BrowseExcelFile();
-
+			//classInit.cLoadingScreen.Show();
 			int RawMaxRows = classInit.cxlReader.GetMaxRowsInWorkbook(txtRawData.Text);
 			txtNumJoint.Text = RawMaxRows.ToString();
 			tempJointVal = RawMaxRows;
+			//classInit.cLoadingScreen.StopLoading();
 		}
 
 		private void btnFilePath_Click(object sender, EventArgs e)
@@ -157,17 +160,17 @@ namespace Russ_Tool
 			txtFilePathDest.Text = classInit.cFileManager.BrowseFolder();
 		}
 
-		private void btnGenerate_Click(object sender, EventArgs e)
+		private async void btnGenerate_Click(object sender, EventArgs e)
 		{
 			InitiliazeConst();
 			StoreData();
 			string pPath = pFileDest;
 			string valReport = GetSelectedReport();
 			if (string.IsNullOrEmpty(pRawDataPath)) { MessageBox.Show("Raw data input file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-			
+
 
 			// Show loading screen
-
+	
 
 			if (pPath != "")
 			{
@@ -178,16 +181,19 @@ namespace Russ_Tool
 				classInit.cxlReader.ReplaceTextInExcel(newFileDest, pFilename, classInit.cData.InsertDictionary());
 				if (SelectedReport == 0)
 				{
+					
 					classInit.cxlReader.InsertDataToDoubleCheck(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
+					classInit.cLoadingScreen.StopLoading();
 				}
 				if (SelectedReport == 1)
 				{
 					if (checkMaxRowsCorrect() == false) { MessageBox.Show($"The number of joints cannot exceed {tempJointVal}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; };
 					if (string.IsNullOrEmpty(pNumJoints) || int.Parse(pNumJoints) == 0) { MessageBox.Show("Invalid Number of Joints", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 					if (floatExist == true) { if (pFloatPos == 0) { MessageBox.Show("Invalid Float Position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; } }
-			
+					//classInit.cLoadingScreen.Show();
 					classInit.cxlReader.GetShoeFloatConditions(shoeExist, floatExist, pFloatPos,pShoeLen,pFloatLen);
 					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
+					//classInit.cLoadingScreen.StopLoading();
 				}
 
 			}

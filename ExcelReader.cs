@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Report_Generator;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -383,7 +384,7 @@ namespace Russ_Tool
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show($"An error occurred: Invalid Import File", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -422,8 +423,9 @@ namespace Russ_Tool
 
 		public async void InsertDataToCasingTally(string pRawDataPath, string pCTPath, string pfilePath, string pfileName, int pLastRow)
 		{
-			
-		
+			//ProgressLoader loader = new ProgressLoader();
+			//loader.Show();
+
 			try
 			{
 				using (var wbRawData = new XLWorkbook(pRawDataPath))
@@ -569,6 +571,7 @@ namespace Russ_Tool
 						wbDblChk.Save();
 						// Display success message
 						string pathDir = Path.GetDirectoryName(pfilePath);
+						//loader.StopLoading();
 						MessageBox.Show($"{pfileName} updated successfully.\nLocated at: {Path.Combine(pathDir, pfileName)}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 					catch (Exception ex)
@@ -581,6 +584,7 @@ namespace Russ_Tool
 			{
 				MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		
 		}
 
 
