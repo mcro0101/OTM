@@ -34,6 +34,15 @@ namespace Russ_Tool
 
 		public void InitializeControls()
 		{
+			if (classInit.cIniConfig.EnableGenerate == false)
+			{ //btnGenerate.Enabled = false; btnGenerate.BackColor = Color.FromArgb(255, 0, 0); 
+			MessageBox.Show("The filepath specified in the config.ini is invalid. Please ensure the correct path is specified before running the application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				foreach (Control control in this.Controls)
+				{
+					control.Enabled = false;
+				}
+			}
+			else { btnGenerate.Enabled = true; }
 			dtpDate.Format = DateTimePickerFormat.Custom;
 			dtpDate.CustomFormat = "MM-dd-yyyy";
 			//txtDate.Text = classInit.cIniConfig.iDate;
@@ -130,6 +139,7 @@ namespace Russ_Tool
 		private void Initialize()
 		{
 			classInit.cIniConfig.ReadConfig();
+			
 			InitializeControls();
 		}
 		private string GetSelectedReport()

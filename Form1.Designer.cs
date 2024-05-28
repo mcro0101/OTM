@@ -96,9 +96,9 @@
 			// btnGenerate
 			// 
 			btnGenerate.Font = new Font("Segoe UI", 13F);
-			btnGenerate.Location = new Point(435, 605);
+			btnGenerate.Location = new Point(428, 587);
 			btnGenerate.Name = "btnGenerate";
-			btnGenerate.Size = new Size(117, 95);
+			btnGenerate.Size = new Size(135, 106);
 			btnGenerate.TabIndex = 5;
 			btnGenerate.Text = "Generate";
 			btnGenerate.UseVisualStyleBackColor = true;

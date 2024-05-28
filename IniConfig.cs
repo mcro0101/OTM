@@ -31,6 +31,7 @@ namespace Russ_Tool
 		public string iFileDestination = "";
 		public string iDoubleCheckTemplatePath = "";
 		public string iCasingTallyTemplatePath = "";
+		public bool EnableGenerate = true;
 
 		public bool CheckConfigExist()
 		{
@@ -81,6 +82,8 @@ namespace Russ_Tool
 				iFloatType = DefVal["FloatType"].StringValue;
 				iDoubleCheckTemplatePath = DefVal["DoubleCheckTemplatePath"].StringValue;
 				iCasingTallyTemplatePath = DefVal["CasingTallyTemplatePath"].StringValue;
+				if (string.IsNullOrEmpty(iDoubleCheckTemplatePath) || string.IsNullOrEmpty(iCasingTallyTemplatePath)) { EnableGenerate = false; }
+				else {  EnableGenerate = true; }
 
 			}
 			else { return false; }
