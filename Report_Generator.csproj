@@ -8,7 +8,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
+    <ApplicationIcon>Templates\OTMicon.ico</ApplicationIcon>
+    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Templates\OTMicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.2" />

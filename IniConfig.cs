@@ -1,4 +1,5 @@
-﻿using SharpConfig;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using SharpConfig;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,7 +15,7 @@ namespace Russ_Tool
 {
 	public class IniConfig
 	{
-		private string configFileName = "Config.ini";
+		
 		public string iDate = "";
 		public string iCasingDetails = "";
 		public string iWellInformation = "";
@@ -31,14 +32,18 @@ namespace Russ_Tool
 		public string iFileDestination = "";
 		public string iDoubleCheckTemplatePath = "";
 		public string iCasingTallyTemplatePath = "";
+
+
+
 		public bool EnableGenerate = true;
+		private string configFileName = "Config.ini";
 
 		public bool CheckConfigExist()
 		{
 
 			string exeFilePath = Application.ExecutablePath;
 			string getFolder = Path.GetDirectoryName(exeFilePath);
-
+			string cTempFolder = "";
 			try
 			{
 				string[] files = Directory.GetFiles(getFolder);
@@ -52,7 +57,8 @@ namespace Russ_Tool
 				}
 
 			}
-			catch (Exception ex) { return false; }
+			catch (Exception ex) { EnableGenerate = false;  return false; }
+			EnableGenerate = false;
 			return false;
 		}
 
@@ -89,6 +95,49 @@ namespace Russ_Tool
 			else { return false; }
 			return true;
 		}
+
+		//public bool UpdateConfigValues()
+		//{
+		//	try
+		//	{
+		//		Form1 mMain = new Form1();
+		//		// Load the existing configuration file
+		//		Configuration cfg = SharpConfig.Configuration.LoadFromFile(configFileName);
+
+		//		// Get the section where your values are stored
+		//		var DefVal = cfg["DefaultValue"];
+
+
+		//		// Update the values with the current properties
+		//		DefVal["Date"].StringValue = Main.CL
+		//		DefVal["CasingDetails"].StringValue = mMain.pCD;
+		//		DefVal["WellInformatio"].StringValue = mMain.pWI;
+		//		DefVal["RunOperator1"].StringValue = mMain.pRO1;
+		//		DefVal["RunOperator2"].StringValue = mMain.pRO2;
+		//		//DefVal["NumberOfJoints"].StringValue = iNumberOfJoints;
+		//		DefVal["ShoeType"].StringValue = mMain.pShoeType;
+		//		DefVal["ShoeLength"].StringValue = mMain.pShoeLen.ToString();
+		//		DefVal["FloatLength"].StringValue = mMain.pFloatLen.ToString();
+		//		DefVal["FloatPosition"].StringValue = mMain.pFloatPos.ToString();
+		//		DefVal["FileName"].StringValue = iFileName;
+		//		//DefVal["RawFile"].StringValue = iRawFile;
+		//		DefVal["FileDestination"].StringValue = iFileDestination;
+		//		DefVal["FloatType"].StringValue = iFloatType;
+		//		DefVal["DoubleCheckTemplatePath"].StringValue = iDoubleCheckTemplatePath;
+		//		DefVal["CasingTallyTemplatePath"].StringValue = iCasingTallyTemplatePath;
+
+		//		// Save the updated configuration back to the file
+		//		cfg.SaveToFile(configFileName);
+
+		//		return true;
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		// Handle exceptions if necessary
+		//		return false;
+		//	}
+		//}
+
 
 	}
 }

@@ -170,10 +170,35 @@ namespace Russ_Tool
 			txtFilePathDest.Text = classInit.cFileManager.BrowseFolder();
 		}
 
-		private async void btnGenerate_Click(object sender, EventArgs e)
+		//private void UpdateConfigVal()
+		//{
+		//	// Update string values directly
+		//	classInit.cData.dDate = txtDate.Text;
+		//	classInit.cData.dCasingDetails = txtCD.Text;
+		//	classInit.cData.dWellInformation = txtWI.Text;
+		//	classInit.cData.dRunOperator1 = txtRO1.Text;
+		//	classInit.cData.dRunOperator2 = txtRO2.Text;
+		//	classInit.cData.dNumberOfJoints = txtNumJoint.Text;
+		//	classInit.cData.dShoeType = txtShoeType.Text;
+
+		//	// Parse and update double values with error handling
+		//	if (double.TryParse(txtShoeLen.Text, out double shoeLength)){classInit.cData.dShoeLength = shoeLength;}
+		//	else {classInit.cData.dShoeLength = 0;}
+		//	if (double.TryParse(txtFloatLen.Text, out double floatLength)){classInit.cData.dFloatLength = floatLength;}
+		//	else {classInit.cData.dFloatLength = 0;}
+		//	// Parse and update int values with error handling
+		//	if (int.TryParse(txtFloatPos.Text, out int floatPosition)){classInit.cData.dFloatPosition = floatPosition;}
+		//	else {classInit.cData.dFloatPosition = 0;}
+		//	// Save the updated configuration values
+		//	classInit.cIniConfig.UpdateConfigValues();
+		//}
+
+
+		private void btnGenerate_Click(object sender, EventArgs e)
 		{
 			InitiliazeConst();
 			StoreData();
+			//classInit.cIniConfig.UpdateConfigValues(); 
 			string pPath = pFileDest;
 			string valReport = GetSelectedReport();
 			if (string.IsNullOrEmpty(pRawDataPath)) { MessageBox.Show("Raw data input file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
