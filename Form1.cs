@@ -1,6 +1,7 @@
 using DocumentFormat.OpenXml.Math;
 using Report_Generator;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Russ_Tool
 {
@@ -36,15 +37,15 @@ namespace Russ_Tool
 		{
 			if (classInit.cIniConfig.EnableGenerate == false)
 			{ //btnGenerate.Enabled = false; btnGenerate.BackColor = Color.FromArgb(255, 0, 0); 
-			MessageBox.Show("The filepath specified in the config.ini is invalid. Please ensure the correct path is specified before running the application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("The filepath specified in the config.ini is invalid. Please ensure the correct path is specified before running the application.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				foreach (Control control in this.Controls)
 				{
 					control.Enabled = false;
 				}
 			}
 			else { btnGenerate.Enabled = true; }
-			dtpDate.Format = DateTimePickerFormat.Custom;
-			dtpDate.CustomFormat = "MM-dd-yyyy";
+			dtpDates.Format = DateTimePickerFormat.Custom;
+			dtpDates.CustomFormat = "MM-dd-yyyy";
 			//txtDate.Text = classInit.cIniConfig.iDate;
 			txtCD.Text = classInit.cIniConfig.iCasingDetails;
 			txtWI.Text = classInit.cIniConfig.iWellInformation;
@@ -75,15 +76,20 @@ namespace Russ_Tool
 		}
 		private void SetFileName()
 		{
+			string f_WI = txtWI.Text;
+			string f_CD = txtCD.Text;
 			string nowDate = DateTime.Now.ToString("MM-dd-yy");
-			nowDate = nowDate.Replace("-", "");
+			//nowDate = nowDate.Replace("-", "");
+			string dtDate = dtpDates.Value.ToString("MM-dd-yy");
+
+
 			if (rdoDblChk.Checked == true)
 			{
-				txtFileName.Text = "DoubleCheck_" + nowDate;
+				txtFileName.Text = f_WI + " " + f_CD + " " + "Double Check Tally " + dtDate;
 			}
 			else if (rdoCT.Checked == true)
 			{
-				txtFileName.Text = "CasingTally_" + nowDate;
+				txtFileName.Text = f_WI + " " + f_CD + " " + "Casing Tally " + dtDate;
 			}
 			else
 			{
@@ -108,10 +114,10 @@ namespace Russ_Tool
 		}
 		public void InitiliazeConst()
 		{
-		
-			
+
+
 			//pDate = txtDate.Text;
-			pDate = dtpDate.Text;
+			pDate = dtpDates.Text;
 			pCD = txtCD.Text;
 			pWI = txtWI.Text;
 			pRO1 = txtRO1.Text;
@@ -121,7 +127,7 @@ namespace Russ_Tool
 			pShoeType = txtShoeType.Text;
 			pShoeLen = classInit.cxlReader.ConvertStringToDouble(txtShoeLen.Text);
 			pFloatLen = classInit.cxlReader.ConvertStringToDouble(txtFloatLen.Text);
-			if (string.IsNullOrEmpty(txtFloatPos.Text) ==false) { pFloatPos = int.Parse(txtFloatPos.Text); }	
+			if (string.IsNullOrEmpty(txtFloatPos.Text) == false) { pFloatPos = int.Parse(txtFloatPos.Text); }
 			else { pFloatPos = 0; }
 			pFilename = txtFileName.Text;
 			pFileDest = txtFilePathDest.Text;
@@ -139,7 +145,7 @@ namespace Russ_Tool
 		private void Initialize()
 		{
 			classInit.cIniConfig.ReadConfig();
-			
+
 			InitializeControls();
 		}
 		private string GetSelectedReport()
@@ -156,7 +162,7 @@ namespace Russ_Tool
 
 		private void btnRawData_Click(object sender, EventArgs e)
 		{
-		
+
 			txtRawData.Text = classInit.cxlReader.BrowseExcelFile();
 			//classInit.cLoadingScreen.Show();
 			int RawMaxRows = classInit.cxlReader.GetMaxRowsInWorkbook(txtRawData.Text);
@@ -205,7 +211,7 @@ namespace Russ_Tool
 
 
 			// Show loading screen
-	
+
 
 			if (pPath != "")
 			{
@@ -216,7 +222,7 @@ namespace Russ_Tool
 				classInit.cxlReader.ReplaceTextInExcel(newFileDest, pFilename, classInit.cData.InsertDictionary());
 				if (SelectedReport == 0)
 				{
-					
+
 					classInit.cxlReader.InsertDataToDoubleCheck(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
 					classInit.cLoadingScreen.StopLoading();
 				}
@@ -226,7 +232,7 @@ namespace Russ_Tool
 					if (string.IsNullOrEmpty(pNumJoints) || int.Parse(pNumJoints) == 0) { MessageBox.Show("Invalid Number of Joints", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 					if (floatExist == true) { if (pFloatPos == 0) { MessageBox.Show("Invalid Float Position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; } }
 					//classInit.cLoadingScreen.Show();
-					classInit.cxlReader.GetShoeFloatConditions(shoeExist, floatExist, pFloatPos,pShoeLen,pFloatLen);
+					classInit.cxlReader.GetShoeFloatConditions(shoeExist, floatExist, pFloatPos, pShoeLen, pFloatLen);
 					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
 					//classInit.cLoadingScreen.StopLoading();
 				}
@@ -282,20 +288,42 @@ namespace Russ_Tool
 			if (int.TryParse(newText, out int result) && result > 1000000)
 			{
 				e.Handled = true;
-				MessageBox.Show("Number is too large","Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Number is too large", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private bool checkMaxRowsCorrect()
 		{
-			if(int.Parse(txtNumJoint.Text) <= tempJointVal) { return true; }
+			if (int.Parse(txtNumJoint.Text) <= tempJointVal) { return true; }
 			return false;
 		}
 		public static void PreventSpecialCharacters(object sender, KeyPressEventArgs e)
 		{
-			// Check if the pressed key is a control key or a valid character
-			if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != '_')
+			// Check if the pressed key is a control key or a valid character (letters, digits, underscore, or dash)
+			if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != '_' && e.KeyChar != '-' && e.KeyChar != ' ')
 			{
+				string pInch = "inch";
+				string pM = e.KeyChar.ToString();
+
+				// Check if the pressed key is a slash "/"
+				if (e.KeyChar == '/')
+				{
+					// Show a message box indicating that slash is not allowed and suggest using "-"
+					MessageBox.Show($"Slash is not allowed. Use '-' (dash) instead. \nExample: 7-8, 10-30, 100-5, etc.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+				}
+				else if (e.KeyChar == '"')
+				{
+					// Show a message box indicating that the inch symbol is not allowed and suggest using inch symbol instead
+					MessageBox.Show($"Inch symbol is not allowed. Use '{pInch}' instead. \nExample: 7 inch, etc.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+				}
+				else
+				{
+					// Show a message box indicating that other special characters are not allowed
+					MessageBox.Show($"Special characters are not allowed.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+
 				// Cancel the key press event
 				e.Handled = true;
 			}
@@ -313,7 +341,7 @@ namespace Russ_Tool
 				txtShoeType.Enabled = false;
 
 			}
-			if(rdoShoeYes.Checked == true)
+			if (rdoShoeYes.Checked == true)
 			{
 				//txtShoeLen.Enabled = true;
 				//txtShoeType.Enabled = true;
@@ -337,8 +365,8 @@ namespace Russ_Tool
 				txtFloatType.Text = "";
 				txtFloatPos.Text = "";
 				txtFloatLen.Enabled = false;
-				txtFloatType.Enabled = false ;
-				txtFloatPos.Enabled = false ;
+				txtFloatType.Enabled = false;
+				txtFloatPos.Enabled = false;
 
 
 			}
@@ -358,7 +386,7 @@ namespace Russ_Tool
 
 		}
 
-private static bool IsAllowedSpecialCharacter(char c)
+		private static bool IsAllowedSpecialCharacter(char c)
 		{
 			// Define the set of allowed special characters
 			char[] allowedSpecialCharacters = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '[', ']', '{', '}', '\\', '|', ';', ':', '\'', '"', ',', '.', '<', '>', '/', '?' };
@@ -424,6 +452,33 @@ private static bool IsAllowedSpecialCharacter(char c)
 		private void rdoDblChk_CheckedChanged(object sender, EventArgs e)
 		{
 			SetFileName();
+		}
+
+		private void txtCD_TextChanged(object sender, EventArgs e)
+		{
+			SetFileName();
+		}
+
+		private void txtWI_TextChanged(object sender, EventArgs e)
+		{
+			SetFileName();
+		}
+
+		private void dtpDate_ValueChanged(object sender, EventArgs e)
+		{
+
+			SetFileName();
+		}
+
+		private void dtpDate_DataContextChanged(object sender, EventArgs e)
+		{
+			SetFileName();
+
+		}
+
+		private void txtCD_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			PreventSpecialCharacters(sender, e);
 		}
 	}
 }

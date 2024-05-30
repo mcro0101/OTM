@@ -434,7 +434,7 @@ namespace Russ_Tool
 					var wsRawDataSheet2 = wbRawData.Worksheet("Sheet1");
 					var wsCT = wbDblChk.Worksheet("Casing Tally");
 					bool stopper = false;
-
+					int RowAdder = 4;
 					//var lastRow = wsRawDataSheet2.LastRowUsed().RowNumber();
 					pLastRow = pLastRow + 1;
 					// Copy data row by row and merge cells per row
@@ -462,6 +462,7 @@ namespace Russ_Tool
 							double? valueBInFeet = 0;
 						    string valueInC4 = "";
 							string valueInC= "";
+							
 							int iValueA = rawrow-1; // Declare and initialize the variable
 													//string valueA = iValueA.ToString();
 
@@ -487,7 +488,8 @@ namespace Russ_Tool
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = NO , FLOAT = NO~~~~~~~~~~~~~~~~~//
 
 							if (ShoeStart == 0 && FLoatPosStart==0)
-							{ 
+							{
+								RowAdder = 2;
 								destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA);  // Col A Data
 								destCellB = wsCT.Cell(CTrow, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
 							}
@@ -495,6 +497,7 @@ namespace Russ_Tool
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = YES , FLOAT = NO~~~~~~~~~~~~~~~~~//
 							if (ShoeStart != 0 && FLoatPosStart == 0) 
 							{
+								RowAdder = 3;
 								if (rawrow == 2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); destShoeB = wsCT.Cell(ShoeStart, "B"); destShoeB.SetValue(ShoeLen); }
 								destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA);// Col A Data
 								destCellB = wsCT.Cell(ShoeStart + iValueA, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data;
@@ -503,6 +506,7 @@ namespace Russ_Tool
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = NO , FLOAT = YES~~~~~~~~~~~~~~~~~//
 							if (ShoeStart == 0 && FLoatPosStart != 0)
 							{
+								RowAdder = 3;
 								if (iValueA == FLoatPosStart + 1) { stopper = true; }
 								if (stopper == false)
 								{ 
@@ -523,21 +527,26 @@ namespace Russ_Tool
 								destFloatC4.SetValue(ConvertStringToDouble(valueInC4));
 								wsCT.Cell(4, 5).FormulaA1 = "=F4-B4";
 							}
+							var currentRowRange = wsCT.Range($"A{rawrow + 2}:F{rawrow + 2}");
+							currentRowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+							currentRowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
 							if (rawrow == pLastRow)
 							{
 								// Insert totals row after the last used row
-								int totalRow = pLastRow + 4;
+								int totalRow = pLastRow + RowAdder;
 								var dTotalA = wsCT.Cell(totalRow + 1, "A");
 								dTotalA.SetValue("Total:");
 								wsCT.Cell(totalRow + 1, 2).FormulaA1 = $"=SUM(B4:B{totalRow})";
 								wsCT.Cell("F4").FormulaA1 = $"=SUM(B4:B{totalRow})";
 								var range = wsCT.Range($"A{totalRow + 1}:C{totalRow +1}");
 								range.Style.Fill.BackgroundColor = XLColor.Yellow;
-								var currentRowRange = wsCT.Range($"A{rawrow + 2}:F{rawrow + 2}");
+								currentRowRange = wsCT.Range($"A{rawrow + 2 }:F{rawrow + RowAdder + 1}");
 								currentRowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 								currentRowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
 							}
+							
 
 						}
 
@@ -551,12 +560,15 @@ namespace Russ_Tool
 					}
 
 					int pLastRow2 = wsCT.LastRowUsed().RowNumber();
-					for (int CstartRow = 5; CstartRow <= pLastRow + 4; CstartRow++)
+					for (int CstartRow = 5; CstartRow <= pLastRow + RowAdder; CstartRow++)
 					{
 						// Set the formula in column C for each row
 						wsCT.Cell(CstartRow, 3).FormulaA1 = $"=SUM(B{CstartRow},C{CstartRow - 1})";
 						wsCT.Cell(CstartRow, 5).FormulaA1 = $"=F{CstartRow}-B{CstartRow}";
-						wsCT.Cell(CstartRow, 6).FormulaA1 = $"=E{CstartRow-1}";		
+						wsCT.Cell(CstartRow, 6).FormulaA1 = $"=E{CstartRow-1}";
+						wsCT.Cell(CstartRow, 3).Style.NumberFormat.Format = "0.00"; // Format for two decimal places
+						wsCT.Cell(CstartRow, 5).Style.NumberFormat.Format = "0.00"; // Format for two decimal places
+						wsCT.Cell(CstartRow, 6).Style.NumberFormat.Format = "0.00"; // 
 					}
 
 					int totalRows = wsCT.LastRowUsed().RowNumber();

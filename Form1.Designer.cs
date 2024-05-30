@@ -42,7 +42,7 @@
 			label4 = new Label();
 			label5 = new Label();
 			groupBox1 = new GroupBox();
-			dtpDate = new DateTimePicker();
+			dtpDates = new DateTimePicker();
 			label12 = new Label();
 			txtNumJoint = new TextBox();
 			label11 = new Label();
@@ -142,6 +142,8 @@
 			txtCD.Name = "txtCD";
 			txtCD.Size = new Size(180, 23);
 			txtCD.TabIndex = 9;
+			txtCD.TextChanged += txtCD_TextChanged;
+			txtCD.KeyPress += txtCD_KeyPress;
 			// 
 			// txtWI
 			// 
@@ -149,6 +151,7 @@
 			txtWI.Name = "txtWI";
 			txtWI.Size = new Size(180, 23);
 			txtWI.TabIndex = 10;
+			txtWI.TextChanged += txtWI_TextChanged;
 			// 
 			// txtRO1
 			// 
@@ -193,7 +196,7 @@
 			// 
 			// groupBox1
 			// 
-			groupBox1.Controls.Add(dtpDate);
+			groupBox1.Controls.Add(dtpDates);
 			groupBox1.Controls.Add(label12);
 			groupBox1.Controls.Add(label5);
 			groupBox1.Controls.Add(txtNumJoint);
@@ -213,15 +216,17 @@
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Job Details";
 			// 
-			// dtpDate
+			// dtpDates
 			// 
-			dtpDate.CustomFormat = "MM-dd-yyyy";
-			dtpDate.Format = DateTimePickerFormat.Custom;
-			dtpDate.Location = new Point(144, 19);
-			dtpDate.Margin = new Padding(10, 3, 3, 3);
-			dtpDate.Name = "dtpDate";
-			dtpDate.Size = new Size(180, 23);
-			dtpDate.TabIndex = 33;
+			dtpDates.CustomFormat = "MM-dd-yyyy";
+			dtpDates.Format = DateTimePickerFormat.Custom;
+			dtpDates.Location = new Point(144, 19);
+			dtpDates.Margin = new Padding(10, 3, 3, 3);
+			dtpDates.Name = "dtpDates";
+			dtpDates.Size = new Size(180, 23);
+			dtpDates.TabIndex = 33;
+			dtpDates.ValueChanged += dtpDate_ValueChanged;
+			dtpDates.DataContextChanged += dtpDate_DataContextChanged;
 			// 
 			// label12
 			// 
@@ -282,7 +287,7 @@
 			// label7
 			// 
 			label7.AutoSize = true;
-			label7.Location = new Point(12, 48);
+			label7.Location = new Point(11, 83);
 			label7.Name = "label7";
 			label7.Size = new Size(76, 15);
 			label7.TabIndex = 29;
@@ -299,7 +304,7 @@
 			// 
 			// txtFloatLen
 			// 
-			txtFloatLen.Location = new Point(138, 43);
+			txtFloatLen.Location = new Point(137, 80);
 			txtFloatLen.Name = "txtFloatLen";
 			txtFloatLen.Size = new Size(180, 23);
 			txtFloatLen.TabIndex = 28;
@@ -308,7 +313,7 @@
 			// label16
 			// 
 			label16.AutoSize = true;
-			label16.Location = new Point(12, 77);
+			label16.Location = new Point(11, 50);
 			label16.Name = "label16";
 			label16.Size = new Size(63, 15);
 			label16.TabIndex = 22;
@@ -316,7 +321,7 @@
 			// 
 			// txtFloatType
 			// 
-			txtFloatType.Location = new Point(138, 72);
+			txtFloatType.Location = new Point(137, 42);
 			txtFloatType.Name = "txtFloatType";
 			txtFloatType.Size = new Size(180, 23);
 			txtFloatType.TabIndex = 12;
@@ -341,7 +346,7 @@
 			// label13
 			// 
 			label13.AutoSize = true;
-			label13.Location = new Point(12, 116);
+			label13.Location = new Point(11, 116);
 			label13.Name = "label13";
 			label13.Size = new Size(82, 15);
 			label13.TabIndex = 24;
@@ -477,7 +482,7 @@
 			// 
 			txtFileName.Location = new Point(73, 52);
 			txtFileName.Name = "txtFileName";
-			txtFileName.Size = new Size(228, 23);
+			txtFileName.Size = new Size(271, 23);
 			txtFileName.TabIndex = 24;
 			txtFileName.KeyPress += txtFileName_KeyPress;
 			// 
@@ -638,6 +643,6 @@
 		private TextBox txtFloatLen;
 		private GroupBox groupBox5;
 		private GroupBox groupBox6;
-		private DateTimePicker dtpDate;
+		private DateTimePicker dtpDates;
 	}
 }
