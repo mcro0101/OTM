@@ -224,7 +224,7 @@ namespace Russ_Tool
 				{
 
 					classInit.cxlReader.InsertDataToDoubleCheck(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
-					classInit.cLoadingScreen.StopLoading();
+					//classInit.cLoadingScreen.StopLoading();
 				}
 				if (SelectedReport == 1)
 				{
@@ -477,6 +477,11 @@ namespace Russ_Tool
 		}
 
 		private void txtCD_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			PreventSpecialCharacters(sender, e);
+		}
+
+		private void txtWI_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			PreventSpecialCharacters(sender, e);
 		}

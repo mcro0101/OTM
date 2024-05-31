@@ -8,13 +8,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
-    <ApplicationIcon>Templates\OTMicon.ico</ApplicationIcon>
-    <FileVersion>1.2.0.0</FileVersion>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <ApplicationIcon>Templates\OTM logo.ico</ApplicationIcon>
+    <FileVersion>1.2.1.0</FileVersion>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Templates\OTMicon.ico" />
+    <Content Include="Templates\OTM logo.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -96,9 +96,9 @@
 			// btnGenerate
 			// 
 			btnGenerate.Font = new Font("Segoe UI", 13F);
-			btnGenerate.Location = new Point(428, 587);
+			btnGenerate.Location = new Point(420, 591);
 			btnGenerate.Name = "btnGenerate";
-			btnGenerate.Size = new Size(135, 106);
+			btnGenerate.Size = new Size(135, 112);
 			btnGenerate.TabIndex = 5;
 			btnGenerate.Text = "Generate";
 			btnGenerate.UseVisualStyleBackColor = true;
@@ -130,7 +130,7 @@
 			// 
 			// txtDate
 			// 
-			txtDate.Location = new Point(398, 291);
+			txtDate.Location = new Point(772, 86);
 			txtDate.Name = "txtDate";
 			txtDate.Size = new Size(180, 23);
 			txtDate.TabIndex = 8;
@@ -152,6 +152,7 @@
 			txtWI.Size = new Size(180, 23);
 			txtWI.TabIndex = 10;
 			txtWI.TextChanged += txtWI_TextChanged;
+			txtWI.KeyPress += txtWI_KeyPress;
 			// 
 			// txtRO1
 			// 
@@ -209,9 +210,9 @@
 			groupBox1.Controls.Add(label3);
 			groupBox1.Controls.Add(label4);
 			groupBox1.ForeColor = SystemColors.ActiveCaptionText;
-			groupBox1.Location = new Point(12, 4);
+			groupBox1.Location = new Point(14, 62);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(378, 203);
+			groupBox1.Size = new Size(378, 195);
 			groupBox1.TabIndex = 21;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Job Details";
@@ -259,7 +260,7 @@
 			groupBox2.Controls.Add(groupBox6);
 			groupBox2.Controls.Add(groupBox5);
 			groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-			groupBox2.Location = new Point(13, 263);
+			groupBox2.Location = new Point(13, 260);
 			groupBox2.Name = "groupBox2";
 			groupBox2.Size = new Size(378, 307);
 			groupBox2.TabIndex = 22;
@@ -472,7 +473,7 @@
 			// 
 			// txtFilePathDest
 			// 
-			txtFilePathDest.Location = new Point(21, 101);
+			txtFilePathDest.Location = new Point(21, 107);
 			txtFilePathDest.Name = "txtFilePathDest";
 			txtFilePathDest.ReadOnly = true;
 			txtFilePathDest.Size = new Size(280, 23);
@@ -489,7 +490,7 @@
 			// label2
 			// 
 			label2.AutoSize = true;
-			label2.Location = new Point(6, 80);
+			label2.Location = new Point(6, 86);
 			label2.Name = "label2";
 			label2.Size = new Size(167, 15);
 			label2.TabIndex = 26;
@@ -516,14 +517,14 @@
 			groupBox3.ForeColor = SystemColors.ActiveCaptionText;
 			groupBox3.Location = new Point(12, 569);
 			groupBox3.Name = "groupBox3";
-			groupBox3.Size = new Size(377, 132);
+			groupBox3.Size = new Size(377, 140);
 			groupBox3.TabIndex = 28;
 			groupBox3.TabStop = false;
 			groupBox3.Text = "Save File";
 			// 
 			// btnFilePathDest
 			// 
-			btnFilePathDest.Location = new Point(297, 101);
+			btnFilePathDest.Location = new Point(297, 107);
 			btnFilePathDest.Name = "btnFilePathDest";
 			btnFilePathDest.Size = new Size(75, 23);
 			btnFilePathDest.TabIndex = 28;
@@ -555,7 +556,7 @@
 			// 
 			groupBox4.Controls.Add(txtRawData);
 			groupBox4.Controls.Add(btnImportRaw);
-			groupBox4.Location = new Point(12, 207);
+			groupBox4.Location = new Point(12, 6);
 			groupBox4.Name = "groupBox4";
 			groupBox4.Size = new Size(378, 56);
 			groupBox4.TabIndex = 32;
@@ -567,7 +568,7 @@
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(243, 243, 243);
-			ClientSize = new Size(575, 707);
+			ClientSize = new Size(575, 721);
 			Controls.Add(groupBox3);
 			Controls.Add(groupBox4);
 			Controls.Add(button1);
@@ -579,6 +580,7 @@
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MaximizeBox = false;
 			Name = "Form1";
+			StartPosition = FormStartPosition.CenterScreen;
 			Text = "OTM Report Generator";
 			Load += Form1_Load;
 			groupBox1.ResumeLayout(false);

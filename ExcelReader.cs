@@ -347,7 +347,7 @@ namespace Russ_Tool
 
 							//Add H values
 							wsDblchk.Cell(row + 2, 8).FormulaA1 = $"=ABS(B{row + 2}-E{row + 2})";
-							wsDblchk.Cell(row + 2,9).FormulaA1 = "=IF(H4 < 0.02, \"Good\", \"Bad\")";
+							wsDblchk.Cell(row + 2,9).FormulaA1 = $"=IF(H{row + 2} < 0.02, \"Good\", \"Bad\")";
 
 							
 							// Merge cells
