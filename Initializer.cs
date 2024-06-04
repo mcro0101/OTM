@@ -19,6 +19,7 @@ namespace Russ_Tool
 		public IniConfig cIniConfig { get; set; }
 
 		public ProgressLoader cLoadingScreen { get; set; }
+		//public FrmFileSave cFileSaveForm { get; set; }
 		public Initializer()
 		{
 			cData = new DataStorage();
@@ -26,6 +27,7 @@ namespace Russ_Tool
 			cFileManager = new FileManager();
 			cIniConfig = new IniConfig();
 			cLoadingScreen = new ProgressLoader();
+			//cFileSaveForm = new FrmFileSave();
 
 		}
 	}

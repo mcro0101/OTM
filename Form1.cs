@@ -26,11 +26,13 @@ namespace Russ_Tool
 		public bool shoeExist = false;
 		public bool floatExist = false;
 		public int tempJointVal = 0;
+		private FrmFileSave frmFileSaver;
 
 		public Form1()
 		{
 			InitializeComponent();
 			classInit = new Initializer();
+			//frmFileSaver = _frmFileSaver;
 		}
 
 		public void InitializeControls()
@@ -147,6 +149,12 @@ namespace Russ_Tool
 			classInit.cIniConfig.ReadConfig();
 
 			InitializeControls();
+			
+			//classInit.cFileSaveForm.Show();
+			//if (frmFileSaver.activateForm == false)
+			//{this.Enabled = false;} else{this.Enabled = true;}
+
+			//if (frmFileSaver.closeForm == true) { this.Close(); }
 		}
 		private string GetSelectedReport()
 		{
@@ -173,7 +181,8 @@ namespace Russ_Tool
 
 		private void btnFilePath_Click(object sender, EventArgs e)
 		{
-			txtFilePathDest.Text = classInit.cFileManager.BrowseFolder();
+			string cListedpath = classInit.cIniConfig.iFileDestination;
+			txtFilePathDest.Text = classInit.cFileManager.BrowseFolder(cListedpath);
 		}
 
 		//private void UpdateConfigVal()
@@ -300,7 +309,7 @@ namespace Russ_Tool
 		public static void PreventSpecialCharacters(object sender, KeyPressEventArgs e)
 		{
 			// Check if the pressed key is a control key or a valid character (letters, digits, underscore, or dash)
-			if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != '_' && e.KeyChar != '-' && e.KeyChar != ' ')
+			if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != '_' && e.KeyChar != '-' && e.KeyChar != ' ' && e.KeyChar != '.')
 			{
 				string pInch = "inch";
 				string pM = e.KeyChar.ToString();
@@ -309,7 +318,7 @@ namespace Russ_Tool
 				if (e.KeyChar == '/')
 				{
 					// Show a message box indicating that slash is not allowed and suggest using "-"
-					MessageBox.Show($"Slash is not allowed. Use '-' (dash) instead. \nExample: 7-8, 10-30, 100-5, etc.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					MessageBox.Show($"Slash is not allowed. Use '-' (dash) instead. \nExample: instead of 1/2, use: 1-2, or .5 ", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 				}
 				else if (e.KeyChar == '"')
