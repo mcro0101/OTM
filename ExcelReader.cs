@@ -421,7 +421,7 @@ namespace Russ_Tool
 		// ---------------------------------------------------------------
 
 
-		public async void InsertDataToCasingTally(string pRawDataPath, string pCTPath, string pfilePath, string pfileName, int pLastRow)
+		public async void InsertDataToCasingTally(string pRawDataPath, string pCTPath, string pfilePath, string pfileName, int pLastRow, string pShoeType, string pfloatType)
 		{
 			//ProgressLoader loader = new ProgressLoader();
 			//loader.Show();
@@ -469,7 +469,7 @@ namespace Russ_Tool
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = YES , FLOAT = YES~~~~~~~~~~~~~~~~~//
 							if (ShoeStart !=0 && FLoatPosStart != 0)
 							{
-								if (rawrow==2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); destShoeB = wsCT.Cell(ShoeStart, "B"); destShoeB.SetValue(ShoeLen); }
+								if (rawrow==2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue(pShoeType); destShoeB = wsCT.Cell(ShoeStart, "B"); destShoeB.SetValue(ShoeLen); }
 								if (iValueA == FLoatPosStart + 1) { stopper = true; }
 								if (stopper == false)
 								{ 
@@ -477,7 +477,7 @@ namespace Russ_Tool
 									destCellB = wsCT.Cell(ShoeStart + iValueA, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
 								}
 
-								if (FLoatPosStart != 0 && iValueA == (ShoeStart + FLoatPosStart)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue("Float"); destFloatB = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "B"); destFloatB.SetValue(Floatlen); }
+								if (FLoatPosStart != 0 && iValueA == (ShoeStart + FLoatPosStart)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue(pfloatType); destFloatB = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "B"); destFloatB.SetValue(Floatlen); }
 								if (stopper == true) 
 								{
 									destRowNumCounter = wsCT.Cell(ShoeStart + iValueA + 1, "A"); destRowNumCounter.SetValue(iValueA);
@@ -498,7 +498,7 @@ namespace Russ_Tool
 							if (ShoeStart != 0 && FLoatPosStart == 0) 
 							{
 								RowAdder = 3;
-								if (rawrow == 2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue("Shoe"); destShoeB = wsCT.Cell(ShoeStart, "B"); destShoeB.SetValue(ShoeLen); }
+								if (rawrow == 2) { destShoeA = wsCT.Cell(ShoeStart, "A"); destShoeA.SetValue(pShoeType); destShoeB = wsCT.Cell(ShoeStart, "B"); destShoeB.SetValue(ShoeLen); }
 								destRowNumCounter = wsCT.Cell(ShoeStart + iValueA, "A"); destRowNumCounter.SetValue(iValueA);// Col A Data
 								destCellB = wsCT.Cell(ShoeStart + iValueA, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data;
 							}
@@ -513,7 +513,7 @@ namespace Russ_Tool
 									destRowNumCounter = wsCT.Cell(CTrow, "A"); destRowNumCounter.SetValue(iValueA); // Col A Data
 									destCellB = wsCT.Cell(CTrow, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
 								}
-								if (FLoatPosStart != 0 && iValueA == (FLoatPosStart + 1)) { destFloatA = wsCT.Cell(CTrow, "A"); destFloatA.SetValue("Float"); destFloatB = wsCT.Cell(CTrow, "B"); destFloatB.SetValue(Floatlen); }
+								if (FLoatPosStart != 0 && iValueA == (FLoatPosStart + 1)) { destFloatA = wsCT.Cell(CTrow, "A"); destFloatA.SetValue(pfloatType); destFloatB = wsCT.Cell(CTrow, "B"); destFloatB.SetValue(Floatlen); }
 								if (stopper == true)
 								{ 
 									destRowNumCounter = wsCT.Cell(CTrow + 1, "A"); destRowNumCounter.SetValue(iValueA);  // Col A Data
@@ -530,6 +530,7 @@ namespace Russ_Tool
 							var currentRowRange = wsCT.Range($"A{rawrow + 2}:F{rawrow + 2}");
 							currentRowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 							currentRowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+						
 
 							if (rawrow == pLastRow)
 							{
@@ -546,7 +547,7 @@ namespace Russ_Tool
 								currentRowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
 							}
-							
+							currentRowRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
 						}
 
