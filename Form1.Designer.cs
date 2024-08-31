@@ -97,7 +97,7 @@
 			// 
 			btnGenerate.Anchor = AnchorStyles.None;
 			btnGenerate.Font = new Font("Segoe UI", 13F);
-			btnGenerate.Location = new Point(398, 575);
+			btnGenerate.Location = new Point(420, 569);
 			btnGenerate.Name = "btnGenerate";
 			btnGenerate.Size = new Size(130, 124);
 			btnGenerate.TabIndex = 5;
@@ -467,7 +467,7 @@
 			button1.FlatAppearance.BorderColor = Color.LightGray;
 			button1.FlatStyle = FlatStyle.Flat;
 			button1.ImageAlign = ContentAlignment.MiddleRight;
-			button1.Location = new Point(398, 12);
+			button1.Location = new Point(420, 12);
 			button1.Name = "button1";
 			button1.Size = new Size(155, 124);
 			button1.TabIndex = 23;
@@ -571,7 +571,7 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			AutoScroll = true;
 			BackColor = Color.FromArgb(243, 243, 243);
-			ClientSize = new Size(576, 718);
+			ClientSize = new Size(470, 718);
 			Controls.Add(groupBox3);
 			Controls.Add(groupBox4);
 			Controls.Add(button1);
