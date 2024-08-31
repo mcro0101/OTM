@@ -477,7 +477,7 @@ namespace Russ_Tool
 									destCellB = wsCT.Cell(ShoeStart + iValueA, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
 								}
 
-								if (FLoatPosStart != 0 && iValueA == (ShoeStart + FLoatPosStart)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue(pfloatType); destFloatB = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "B"); destFloatB.SetValue(Floatlen); }
+								if (FLoatPosStart != 0 && iValueA == (FLoatPosStart + 1)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue(pfloatType); destFloatB = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "B"); destFloatB.SetValue(Floatlen); }
 								if (stopper == true) 
 								{
 									destRowNumCounter = wsCT.Cell(ShoeStart + iValueA + 1, "A"); destRowNumCounter.SetValue(iValueA);
