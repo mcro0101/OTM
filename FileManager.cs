@@ -37,7 +37,7 @@ namespace Russ_Tool
 
 		// ---------------------------------------------------------------
 
-		public string BrowseFolder()
+		public string BrowseFolder(string pPath)
 		{
 			string selectedFolder = null;
 
@@ -46,7 +46,8 @@ namespace Russ_Tool
 				using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
 				{
 					// Set the initial folder (optional)
-					folderBrowserDialog.SelectedPath = @"C:\TEMP\Templates\Output";
+					//folderBrowserDialog.SelectedPath = @"C:\TEMP\Templates\Output";
+					folderBrowserDialog.SelectedPath = pPath;
 
 					// Set the dialog to only allow folder selection
 					folderBrowserDialog.Description = "Select a folder";

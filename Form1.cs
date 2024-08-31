@@ -16,6 +16,7 @@ namespace Russ_Tool
 		public string pNumJoints = "";
 		public string pRawDataPath = "";
 		public string pShoeType = "";
+		public string pFloatType = "";
 		public double pShoeLen = 0;
 		public double pFloatLen = 0;
 		public int pFloatPos = 0;
@@ -26,11 +27,13 @@ namespace Russ_Tool
 		public bool shoeExist = false;
 		public bool floatExist = false;
 		public int tempJointVal = 0;
+		private FrmFileSave frmFileSaver;
 
 		public Form1()
 		{
 			InitializeComponent();
 			classInit = new Initializer();
+			//frmFileSaver = _frmFileSaver;
 		}
 
 		public void InitializeControls()
@@ -108,14 +111,13 @@ namespace Russ_Tool
 			classInit.cData.dRunOperator2 = pRO2;
 			classInit.cData.dNumberOfJoints = pNumJoints;
 			classInit.cData.dShoeType = pShoeType;
+			classInit.cData.dFloatType = pFloatType;
 			classInit.cData.dShoeLength = pShoeLen;
 			classInit.cData.dFloatLength = pFloatLen;
 			classInit.cData.dFloatPosition = pFloatPos;
 		}
 		public void InitiliazeConst()
 		{
-
-
 			//pDate = txtDate.Text;
 			pDate = dtpDates.Text;
 			pCD = txtCD.Text;
@@ -125,6 +127,7 @@ namespace Russ_Tool
 			pNumJoints = txtNumJoint.Text;
 			pRawDataPath = txtRawData.Text;
 			pShoeType = txtShoeType.Text;
+			pFloatType = txtFloatType.Text;
 			pShoeLen = classInit.cxlReader.ConvertStringToDouble(txtShoeLen.Text);
 			pFloatLen = classInit.cxlReader.ConvertStringToDouble(txtFloatLen.Text);
 			if (string.IsNullOrEmpty(txtFloatPos.Text) == false) { pFloatPos = int.Parse(txtFloatPos.Text); }
@@ -147,6 +150,12 @@ namespace Russ_Tool
 			classInit.cIniConfig.ReadConfig();
 
 			InitializeControls();
+			
+			//classInit.cFileSaveForm.Show();
+			//if (frmFileSaver.activateForm == false)
+			//{this.Enabled = false;} else{this.Enabled = true;}
+
+			//if (frmFileSaver.closeForm == true) { this.Close(); }
 		}
 		private string GetSelectedReport()
 		{
@@ -173,7 +182,8 @@ namespace Russ_Tool
 
 		private void btnFilePath_Click(object sender, EventArgs e)
 		{
-			txtFilePathDest.Text = classInit.cFileManager.BrowseFolder();
+			string cListedpath = classInit.cIniConfig.iFileDestination;
+			txtFilePathDest.Text = classInit.cFileManager.BrowseFolder(cListedpath);
 		}
 
 		//private void UpdateConfigVal()
@@ -233,7 +243,7 @@ namespace Russ_Tool
 					if (floatExist == true) { if (pFloatPos == 0) { MessageBox.Show("Invalid Float Position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; } }
 					//classInit.cLoadingScreen.Show();
 					classInit.cxlReader.GetShoeFloatConditions(shoeExist, floatExist, pFloatPos, pShoeLen, pFloatLen);
-					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints));
+					classInit.cxlReader.InsertDataToCasingTally(pRawDataPath, newFileDest, newFileDest, pFilename, int.Parse(pNumJoints),pShoeType, pFloatType);
 					//classInit.cLoadingScreen.StopLoading();
 				}
 
@@ -300,7 +310,7 @@ namespace Russ_Tool
 		public static void PreventSpecialCharacters(object sender, KeyPressEventArgs e)
 		{
 			// Check if the pressed key is a control key or a valid character (letters, digits, underscore, or dash)
-			if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != '_' && e.KeyChar != '-' && e.KeyChar != ' ')
+			if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != '_' && e.KeyChar != '-' && e.KeyChar != ' ' && e.KeyChar != '.' && e.KeyChar !='#')
 			{
 				string pInch = "inch";
 				string pM = e.KeyChar.ToString();
@@ -309,7 +319,7 @@ namespace Russ_Tool
 				if (e.KeyChar == '/')
 				{
 					// Show a message box indicating that slash is not allowed and suggest using "-"
-					MessageBox.Show($"Slash is not allowed. Use '-' (dash) instead. \nExample: 7-8, 10-30, 100-5, etc.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					MessageBox.Show($"Slash is not allowed. Use '-' (dash) instead. \nExample: instead of 1/2, use: 1-2, or .5 ", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 				}
 				else if (e.KeyChar == '"')

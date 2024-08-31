@@ -32,6 +32,10 @@ namespace Russ_Tool
 		// Shoe Type
 		public string dShoeType { get; set; }
 
+
+		public string dFloatType { get; set; }
+		
+
 		// Shoe Length
 		public double dShoeLength { get; set; }
 
