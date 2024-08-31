@@ -95,10 +95,11 @@
 			// 
 			// btnGenerate
 			// 
+			btnGenerate.Anchor = AnchorStyles.None;
 			btnGenerate.Font = new Font("Segoe UI", 13F);
-			btnGenerate.Location = new Point(420, 591);
+			btnGenerate.Location = new Point(398, 575);
 			btnGenerate.Name = "btnGenerate";
-			btnGenerate.Size = new Size(135, 112);
+			btnGenerate.Size = new Size(130, 124);
 			btnGenerate.TabIndex = 5;
 			btnGenerate.Text = "Generate";
 			btnGenerate.UseVisualStyleBackColor = true;
@@ -460,6 +461,7 @@
 			// 
 			// button1
 			// 
+			button1.Anchor = AnchorStyles.None;
 			button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
 			button1.BackgroundImageLayout = ImageLayout.Stretch;
 			button1.FlatAppearance.BorderColor = Color.LightGray;
@@ -467,7 +469,7 @@
 			button1.ImageAlign = ContentAlignment.MiddleRight;
 			button1.Location = new Point(398, 12);
 			button1.Name = "button1";
-			button1.Size = new Size(169, 142);
+			button1.Size = new Size(155, 124);
 			button1.TabIndex = 23;
 			button1.UseVisualStyleBackColor = true;
 			// 
@@ -567,8 +569,9 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			AutoScroll = true;
 			BackColor = Color.FromArgb(243, 243, 243);
-			ClientSize = new Size(575, 721);
+			ClientSize = new Size(576, 718);
 			Controls.Add(groupBox3);
 			Controls.Add(groupBox4);
 			Controls.Add(button1);
@@ -576,7 +579,6 @@
 			Controls.Add(txtDate);
 			Controls.Add(groupBox1);
 			Controls.Add(btnGenerate);
-			FormBorderStyle = FormBorderStyle.FixedSingle;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MaximizeBox = false;
 			Name = "Form1";
