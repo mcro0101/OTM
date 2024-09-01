@@ -42,9 +42,9 @@ namespace Russ_Tool
 
             this.AutoScrollPosition = new Point(0, 0);
             this.Resize += new EventHandler(Form1_Resize);
+			//this.AutoScrollMinSize = new System.Drawing.Size(250, 250);
 
-
-        }
+		}
 
         public void InitializeControls()
         {
