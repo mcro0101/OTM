@@ -78,8 +78,8 @@
             groupBox4 = new GroupBox();
             panel1 = new Panel();
             DummyPan = new Panel();
-            Dummy1 = new Panel();
-            DummyPanGen = new Panel();
+            Dummytop = new Panel();
+            DummyGen = new Panel();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox6.SuspendLayout();
@@ -262,6 +262,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(groupBox6);
             groupBox2.Controls.Add(groupBox5);
             groupBox2.ForeColor = SystemColors.ActiveCaptionText;
@@ -587,19 +588,19 @@
             DummyPan.Size = new Size(395, 25);
             DummyPan.TabIndex = 34;
             // 
-            // Dummy1
+            // Dummytop
             // 
-            Dummy1.Location = new Point(14, -17);
-            Dummy1.Name = "Dummy1";
-            Dummy1.Size = new Size(392, 25);
-            Dummy1.TabIndex = 35;
+            Dummytop.Location = new Point(14, -2);
+            Dummytop.Name = "Dummytop";
+            Dummytop.Size = new Size(392, 10);
+            Dummytop.TabIndex = 35;
             // 
-            // DummyPanGen
+            // DummyGen
             // 
-            DummyPanGen.Location = new Point(406, 572);
-            DummyPanGen.Name = "DummyPanGen";
-            DummyPanGen.Size = new Size(181, 10);
-            DummyPanGen.TabIndex = 36;
+            DummyGen.Location = new Point(406, 572);
+            DummyGen.Name = "DummyGen";
+            DummyGen.Size = new Size(181, 10);
+            DummyGen.TabIndex = 36;
             // 
             // Form1
             // 
@@ -609,14 +610,15 @@
             AutoScroll = true;
             BackColor = Color.FromArgb(243, 243, 243);
             ClientSize = new Size(604, 721);
-            Controls.Add(DummyPanGen);
-            Controls.Add(Dummy1);
+            Controls.Add(DummyGen);
+            Controls.Add(Dummytop);
             Controls.Add(DummyPan);
             Controls.Add(btnGenerate);
             Controls.Add(button1);
             Controls.Add(txtDate);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             MaximumSize = new Size(620, 760);
             MinimumSize = new Size(220, 170);
             Name = "Form1";
@@ -690,7 +692,7 @@
 		private DateTimePicker dtpDates;
         private Panel panel1;
         private Panel DummyPan;
-        private Panel Dummy1;
-        private Panel DummyPanGen;
+        private Panel Dummytop;
+        private Panel DummyGen;
     }
 }

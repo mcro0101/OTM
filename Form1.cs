@@ -524,11 +524,11 @@ namespace Russ_Tool
             if (formWidth < 500 && !isMovedDown)
             {
                 DummyPan.Hide();
-                DummyPanGen.Hide();
+                DummyGen.Hide();
         
                 // Move panel1 down by the height of button1 plus an additional 5 units
-                panel1.Location = new Point(panel1.Location.X, Dummy1.Bottom + (btn1Hgt + 5));              
-                button1.Location = new Point(Dummy1.Left, button1.Location.Y);
+                panel1.Location = new Point(panel1.Location.X, Dummytop.Bottom + (btn1Hgt + 5));              
+                button1.Location = new Point(Dummytop.Left, button1.Location.Y);
                 btnGenerate.Location = new Point(DummyPan.Left, panel1.Bottom);
                 isMovedDown = true;
             }
@@ -537,8 +537,8 @@ namespace Russ_Tool
                 DummyPan.Hide();
                
                 button1.Location = new Point(panel1.Right, button1.Location.Y);
-                btnGenerate.Location = new Point(panel1.Right, DummyPanGen.Bottom);
-                panel1.Location = new Point(panel1.Location.X, Dummy1.Bottom);
+                btnGenerate.Location = new Point(panel1.Right, DummyGen.Bottom);
+                panel1.Location = new Point(panel1.Location.X, Dummytop.Bottom);
 
                 isMovedDown = false;
             }
