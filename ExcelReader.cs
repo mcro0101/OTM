@@ -477,12 +477,11 @@ namespace Russ_Tool
 									destCellB = wsCT.Cell(ShoeStart + iValueA, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
 								}
 
-								if (FLoatPosStart != 0 && iValueA == (ShoeStart + FLoatPosStart)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue(pfloatType); destFloatB = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "B"); destFloatB.SetValue(Floatlen); }
+								if (FLoatPosStart != 0 && iValueA == (FLoatPosStart + 1)) { destFloatA = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "A"); destFloatA.SetValue(pfloatType); destFloatB = wsCT.Cell(FLoatPosStart + ShoeStart + 1, "B"); destFloatB.SetValue(Floatlen); }
 								if (stopper == true) 
 								{
 									destRowNumCounter = wsCT.Cell(ShoeStart + iValueA + 1, "A"); destRowNumCounter.SetValue(iValueA);
-									destCellB = wsCT.Cell(ShoeStart + iValueA + 1, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data
-																																															
+									destCellB = wsCT.Cell(ShoeStart + iValueA + 1, "B"); valueBInFeet = ConvertStringToDouble(sourceCellB.GetString()); destCellB.SetValue(valueBInFeet); // Col B Data																																															
 								}
 							}
 							//~~~~~~~~~~~~~~~~~~Condition~~~~~~~SHOE = NO , FLOAT = NO~~~~~~~~~~~~~~~~~//
@@ -523,8 +522,9 @@ namespace Russ_Tool
 							if (CTrow == 4)
 							{
 								valueInC4 = wsCT.Cell("B4").Value.ToString();
-								destFloatC4 = wsCT.Cell("C4");
-								destFloatC4.SetValue(ConvertStringToDouble(valueInC4));
+								///destFloatC4 = wsCT.Cell("C4");
+								wsCT.Cell("C4").FormulaA1 = "=B4";
+								//destFloatC4.SetValue(ConvertStringToDouble(valueInC4));
 								wsCT.Cell(4, 5).FormulaA1 = "=F4-B4";
 							}
 							var currentRowRange = wsCT.Range($"A{rawrow + 2}:F{rawrow + 2}");
