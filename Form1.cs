@@ -508,9 +508,6 @@ namespace Russ_Tool
 
         private bool isMovedDown = false; // Track if the group boxes have already been moved down
 
-
-
-
         private void Form1_Resize(object sender, EventArgs e)
         {
          
@@ -534,7 +531,6 @@ namespace Russ_Tool
             }
             else if (formWidth >= 500 && isMovedDown)
             {
-                DummyPan.Hide();
                
                 button1.Location = new Point(panel1.Right, button1.Location.Y);
                 btnGenerate.Location = new Point(panel1.Right, DummyPanGen.Bottom);
