@@ -103,7 +103,7 @@
 			btnGenerate.Font = new Font("Segoe UI", 13F);
 			btnGenerate.Location = new Point(406, 580);
 			btnGenerate.Name = "btnGenerate";
-			btnGenerate.Size = new Size(178, 125);
+			btnGenerate.Size = new Size(178, 135);
 			btnGenerate.TabIndex = 5;
 			btnGenerate.Text = "Generate";
 			btnGenerate.UseVisualStyleBackColor = true;
@@ -470,9 +470,9 @@
 			button1.FlatAppearance.BorderColor = Color.LightGray;
 			button1.FlatStyle = FlatStyle.Flat;
 			button1.ImageAlign = ContentAlignment.MiddleRight;
-			button1.Location = new Point(406, 8);
+			button1.Location = new Point(406, 18);
 			button1.Name = "button1";
-			button1.Size = new Size(188, 142);
+			button1.Size = new Size(181, 134);
 			button1.TabIndex = 23;
 			button1.UseVisualStyleBackColor = true;
 			// 
