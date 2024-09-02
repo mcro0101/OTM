@@ -30,7 +30,10 @@ namespace Russ_Tool
         public int tempJointVal = 0;
         private FrmFileSave frmFileSaver;
 
-
+        //pat
+        private bool isMovedDown = false; // Track if the group boxes have already been moved down
+        private int BtnGenHgt;
+        private int BtnGenWid;
 
 
 
@@ -40,9 +43,13 @@ namespace Russ_Tool
             classInit = new Initializer();
             //frmFileSaver = _frmFileSaver;
 
+            //Pat
+            BtnGenHgt = this.button1.Height;
+            BtnGenWid = this.button1.Width;
+
             this.AutoScrollPosition = new Point(0, 0);
             this.Resize += new EventHandler(Form1_Resize);
-			//this.AutoScrollMinSize = new System.Drawing.Size(250, 250);
+
 
 		}
 
@@ -505,36 +512,32 @@ namespace Russ_Tool
         {
             PreventSpecialCharacters(sender, e);
         }
-
-        private bool isMovedDown = false; // Track if the group boxes have already been moved down
-
+              
+        //Pat
         private void Form1_Resize(object sender, EventArgs e)
         {
-         
-          
+                  
             int formWidth = this.ClientSize.Width;
 
 
-            int btn1Hgt = button1.Height;
-           // int btnGenHgt = btnGenerate.Height;
-
             if (formWidth < 500 && !isMovedDown)
             {
-                DummyPan.Hide();
-                DummyPanGen.Hide();
-        
-                // Move panel1 down by the height of button1 plus an additional 5 units
-                panel1.Location = new Point(panel1.Location.X, Dummy1.Bottom + (btn1Hgt + 5));              
-                button1.Location = new Point(Dummy1.Left, button1.Location.Y);
-                btnGenerate.Location = new Point(DummyPan.Left, panel1.Bottom);
+                button1.Location = new Point(panel1.Left - (button1.Width/2) + (panel1.Width/2), panel1.Top);
+                panel1.Location = new Point(panel1.Location.X, Dummy1.Bottom + (BtnGenHgt + 10));
+
+                btnGenerate.Height = 35; btnGenerate.Width = groupBox3.Width;
+                btnGenerate.Location = new Point(Dummy1.Left, panel1.Bottom);
                 isMovedDown = true;
             }
             else if (formWidth >= 500 && isMovedDown)
-            {
-               
-                button1.Location = new Point(panel1.Right, button1.Location.Y);
+            {         
+
                 btnGenerate.Location = new Point(panel1.Right, DummyPanGen.Bottom);
+                btnGenerate.Height = BtnGenHgt; btnGenerate.Width = BtnGenWid;
+
                 panel1.Location = new Point(panel1.Location.X, Dummy1.Bottom);
+                button1.Location = new Point(panel1.Right, DmyPanLogo.Bottom);
+
 
                 isMovedDown = false;
             }
