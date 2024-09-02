@@ -77,7 +77,7 @@
             txtRawData = new TextBox();
             groupBox4 = new GroupBox();
             panel1 = new Panel();
-            Dummy1 = new Panel();
+            DummyPan1 = new Panel();
             DummyPanGen = new Panel();
             DmyPanLogo = new Panel();
             groupBox1.SuspendLayout();
@@ -580,15 +580,16 @@
             panel1.Size = new Size(395, 707);
             panel1.TabIndex = 33;
             // 
-            // Dummy1
+            // DummyPan1
             // 
-            Dummy1.Location = new Point(14, -2);
-            Dummy1.Name = "Dummy1";
-            Dummy1.Size = new Size(391, 10);
-            Dummy1.TabIndex = 35;
+            DummyPan1.Location = new Point(14, -2);
+            DummyPan1.Name = "DummyPan1";
+            DummyPan1.Size = new Size(391, 10);
+            DummyPan1.TabIndex = 35;
             // 
             // DummyPanGen
             // 
+            DummyPanGen.BackColor = Color.Transparent;
             DummyPanGen.Location = new Point(406, 567);
             DummyPanGen.Name = "DummyPanGen";
             DummyPanGen.Size = new Size(178, 10);
@@ -596,6 +597,7 @@
             // 
             // DmyPanLogo
             // 
+            DmyPanLogo.BackColor = Color.Transparent;
             DmyPanLogo.Location = new Point(406, 9);
             DmyPanLogo.Name = "DmyPanLogo";
             DmyPanLogo.Size = new Size(178, 10);
@@ -611,7 +613,7 @@
             ClientSize = new Size(604, 721);
             Controls.Add(DmyPanLogo);
             Controls.Add(DummyPanGen);
-            Controls.Add(Dummy1);
+            Controls.Add(DummyPan1);
             Controls.Add(btnGenerate);
             Controls.Add(button1);
             Controls.Add(txtDate);
@@ -690,7 +692,7 @@
 		private GroupBox groupBox6;
 		private DateTimePicker dtpDates;
         private Panel panel1;
-        private Panel Dummy1;
+        private Panel DummyPan1;
         private Panel DummyPanGen;
         private Panel DmyPanLogo;
     }

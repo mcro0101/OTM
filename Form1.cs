@@ -47,6 +47,8 @@ namespace Russ_Tool
             BtnGenHgt = this.button1.Height;
             BtnGenWid = this.button1.Width;
 
+
+
             this.AutoScrollPosition = new Point(0, 0);
             this.Resize += new EventHandler(Form1_Resize);
 
@@ -242,6 +244,7 @@ namespace Russ_Tool
 
             if (pPath != "")
             {
+
                 //classInit.cxlReader.ReadDataFromExcel(pPath, "Sheet1");
                 string newFileDest = pFileDest + "\\" + pFilename + ".xlsx";
                 classInit.cFileManager.CheckAndDeleteFile(newFileDest);
@@ -522,20 +525,28 @@ namespace Russ_Tool
 
             if (formWidth < 500 && !isMovedDown)
             {
-                button1.Location = new Point(panel1.Left - (button1.Width/2) + (panel1.Width/2), panel1.Top);
-                panel1.Location = new Point(panel1.Location.X, Dummy1.Bottom + (BtnGenHgt + 10));
+                DummyPan1.Hide();
+                DummyPanGen.Hide();
+                DmyPanLogo.Hide();
+         
+
+                button1.Location = new Point(panel1.Left - (button1.Width/2) + (panel1.Width/2), DummyPan1.Bottom);
+                panel1.Location = new Point(panel1.Location.X, DummyPan1.Bottom + (BtnGenHgt + 10));
 
                 btnGenerate.Height = 35; btnGenerate.Width = groupBox3.Width;
-                btnGenerate.Location = new Point(Dummy1.Left, panel1.Bottom);
+                btnGenerate.Location = new Point(DummyPan1.Left, panel1.Bottom);
                 isMovedDown = true;
             }
             else if (formWidth >= 500 && isMovedDown)
-            {         
+            {
+                DummyPan1.Show();
+                DummyPanGen.Show();
+                DmyPanLogo.Show();
 
                 btnGenerate.Location = new Point(panel1.Right, DummyPanGen.Bottom);
                 btnGenerate.Height = BtnGenHgt; btnGenerate.Width = BtnGenWid;
 
-                panel1.Location = new Point(panel1.Location.X, Dummy1.Bottom);
+                panel1.Location = new Point(panel1.Location.X, DummyPan1.Bottom);
                 button1.Location = new Point(panel1.Right, DmyPanLogo.Bottom);
 
 
